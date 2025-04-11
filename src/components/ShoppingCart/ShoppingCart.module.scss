@@ -1,0 +1,39 @@
+.cart {
+  padding: 20px;
+  position: absolute;
+  top: 150%;
+  left: 50%;
+  transform: translate(-50%);
+  background: rgba(210, 199, 199, 0.871);
+  width: 850px;
+  height: 600px;
+  border-radius: 20px;
+  z-index: 2;
+}
+
+.title {
+  text-align: center;
+  margin-top: 10px;
+}
+
+table,
+th,
+td {
+  border: 1px solid black;
+}
+
+.table {
+  margin-top: 20px;
+  width: 100%;
+}
+
+.product {
+  padding: 10px 15px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.price {
+  text-align: center;
+}

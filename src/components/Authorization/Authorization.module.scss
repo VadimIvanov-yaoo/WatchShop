@@ -1,0 +1,38 @@
+.page {
+  height: 100vh;
+  background: rgba(211, 211, 211, 0.265);
+}
+
+.author {
+  padding: 100px 80px;
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: white;
+  gap: 30px;
+  top: 20%;
+  left: 50%;
+  border: 1px double rgba(128, 128, 128, 0.185);
+  border-radius: 20px;
+  transform: translateX(-50%);
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.input {
+  padding: 15px 100px 15px 5px;
+  border: 1px solid rgb(133, 132, 132);
+  border-radius: 12px;
+}
+
+.link {
+  color: rgb(105, 140, 236);
+}
+.btn {
+  background-color: red;
+}

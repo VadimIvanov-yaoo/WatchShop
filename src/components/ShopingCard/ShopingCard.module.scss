@@ -1,0 +1,35 @@
+.wrapper {
+  padding: 25px 40px;
+  border-radius: 9px;
+  background: rgba(243, 243, 243, 0.7);
+  border: 1px solid black;
+  //   background: red;
+  backdrop-filter: blur(8px);
+}
+
+.img {
+  width: 269px;
+  height: 176px;
+  margin-bottom: 10px;
+  flex-shrink: 0;
+  mix-blend-mode: multiply;
+}
+
+.contentWrapper {
+  padding: 10px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.contentWrapper {
+  text-transform: uppercase;
+  align-items: center;
+  //   background-color: green;
+}
+
+.currency {
+  color: rgba(0, 0, 0, 0.3);
+  font-size: 24px;
+  font-weight: 400;
+}

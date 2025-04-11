@@ -1,0 +1,56 @@
+.materials {
+  color: #a8a8a8;
+  font-size: 16px;
+  font-weight: 400;
+}
+
+.line {
+  width: 28px;
+  height: 5px;
+  background: #000;
+}
+
+.home {
+  position: relative;
+  z-index: 1;
+  overflow: hidden;
+  margin-bottom: 120px;
+}
+
+.home::after {
+  content: "амфибия 2403";
+  color: #ebebeb;
+  font-size: 243px;
+  font-weight: 900;
+  white-space: nowrap;
+  text-transform: uppercase;
+  position: absolute;
+  top: -10%;
+  left: 10%;
+  transform: translateX(-12%);
+  z-index: -1;
+}
+
+.image {
+  width: 1016px;
+  height: 621px;
+}
+
+.burgerMenu {
+  margin-top: 70px;
+  // background: red;
+  width: 270px;
+  height: 436px;
+}
+
+.input {
+  position: relative;
+  border-radius: 6px;
+  background: #ebebeb;
+  max-width: 70px;
+  padding: 5px;
+}
+
+.inputLabel {
+  margin-bottom: 10px;
+}

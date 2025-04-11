@@ -1,0 +1,32 @@
+.btn {
+  display: flex;
+  padding: 18px 56px;
+  justify-content: center;
+  align-items: center;
+  border-radius: 9px;
+  gap: 10px;
+  font-size: 20px;
+  font-weight: 500;
+}
+
+.transparentBtn {
+  @extend .btn;
+  border: 2px solid #000;
+  background: #fff;
+  color: #000;
+}
+
+.transparentBtn:hover {
+  background: rgb(249, 246, 246);
+}
+
+.blue {
+  background: blue;
+  color: white;
+  padding: 12px 50px;
+}
+
+.cardbtn {
+  font-size: 16px;
+  padding: 12px 40px;
+}
