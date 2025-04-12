@@ -11,8 +11,9 @@ import styles from "./Header.module.scss";
 import { Route, Router, Link } from "react-router-dom";
 import ShoppingCart from "../ShoppingCart/ShoppingCart";
 
-export default function Header() {
+export default function Header({ cart }) {
   const [cartOpen, setCartOpen] = useState(false);
+  const body = document.getElementById("body");
   const navData = [
     { linkTitle: "Мужские" },
     { linkTitle: "Женские" },
@@ -38,6 +39,11 @@ export default function Header() {
       onClick: (e) => {
         e.preventDefault();
         setCartOpen(!cartOpen);
+        if (cartOpen) {
+          body.style.background = "none";
+        } else {
+          body.style.background = "rgba(5, 10, 30, 0.2)";
+        }
       },
     },
   ];
@@ -64,8 +70,7 @@ export default function Header() {
             ))}
           </FlexBox>
         </FlexBox>
-        {console.log(cartOpen)}
-        {cartOpen && <ShoppingCart />}
+        {cartOpen && <ShoppingCart cart={cart} />}
       </Container>
     </div>
   );

@@ -5,7 +5,13 @@ import FlexBox from "../FlexBox/FlexBox";
 import Title from "../Title/Title";
 import styles from "./ShopingCard.module.scss";
 
-export default function ShopingCard({ cardImg, cardTitle, cardPrice }) {
+export default function ShopingCard({
+  cardId,
+  cardImg,
+  cardTitle,
+  cardPrice,
+  addProduct,
+}) {
   return (
     <div className={styles.wrapper}>
       <FlexBox direction="flex-column" align="align-center">
@@ -17,7 +23,12 @@ export default function ShopingCard({ cardImg, cardTitle, cardPrice }) {
           <Description size="s24">
             {cardPrice} <span className={styles.currency}>P</span>
           </Description>
-          <Button size="cardbtn" name="transparentBtn">
+          <Button
+            addProduct={addProduct}
+            id={cardId}
+            size="cardbtn"
+            name="transparentBtn"
+          >
             В корзину
           </Button>
         </div>

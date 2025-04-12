@@ -1,13 +1,15 @@
-import React from "react";
-import cardData from "../../Data/CardData";
+import React, { useState } from "react";
+import card from "../../Data/CardData";
 import ShopingCard from "../ShopingCard/ShopingCard";
 
-export default function ShopCardList() {
+export default function ShopCardList({ addProduct }) {
   return (
     <>
-      {cardData.map((item, index) => (
+      {card.map((item) => (
         <ShopingCard
-          key={item.index}
+          addProduct={addProduct}
+          key={item.id}
+          cardId={item.id}
           cardImg={item.cardImg}
           cardTitle={item.cardTitle}
           cardPrice={item.cardPrice}

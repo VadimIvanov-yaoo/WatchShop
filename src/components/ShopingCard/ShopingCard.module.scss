@@ -5,9 +5,11 @@
   border: 1px solid black;
   //   background: red;
   backdrop-filter: blur(8px);
+  max-height: 390px;
 }
 
 .img {
+  object-fit: cover;
   width: 269px;
   height: 176px;
   margin-bottom: 10px;
@@ -25,7 +27,6 @@
 .contentWrapper {
   text-transform: uppercase;
   align-items: center;
-  //   background-color: green;
 }
 
 .currency {

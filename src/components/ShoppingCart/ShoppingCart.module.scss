@@ -1,14 +1,26 @@
 .cart {
+  position: relative;
   padding: 20px;
+  display: flex;
+  flex-direction: column;
   position: absolute;
   top: 150%;
   left: 50%;
   transform: translate(-50%);
-  background: rgba(210, 199, 199, 0.871);
+  background: white;
+  -webkit-box-shadow: 0px 0px 100px 0px rgba(34, 60, 80, 0.4);
+  -moz-box-shadow: 0px 0px 100px 0px rgba(34, 60, 80, 0.4);
+  box-shadow: 0px 0px 100px 0px rgba(34, 60, 80, 0.4);
   width: 850px;
   height: 600px;
   border-radius: 20px;
   z-index: 2;
+  overflow: auto;
+}
+
+.cartContent {
+  flex: 1;
+  overflow: auto;
 }
 
 .title {
@@ -16,15 +28,19 @@
   margin-top: 10px;
 }
 
-table,
-th,
 td {
-  border: 1px solid black;
+  margin-bottom: 20px;
+  border-top: 1px solid rgba(190, 188, 188, 0.453);
+}
+
+.pad {
+  padding-bottom: 15px;
 }
 
 .table {
   margin-top: 20px;
   width: 100%;
+  border-collapse: collapse;
 }
 
 .product {
@@ -36,4 +52,30 @@ td {
 
 .price {
   text-align: center;
+}
+
+.img {
+  object-fit: cover;
+  height: 80px;
+  // width: 100px;
+}
+
+.totalWrapper {
+  position: sticky;
+  bottom: 0;
+  z-index: 10;
+  padding-top: 20px;
+  border-top: 1px solid #eee;
+  background-color: white;
+}
+
+.total {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.totalSum {
+  font-size: 18px;
 }

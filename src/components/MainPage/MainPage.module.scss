@@ -37,8 +37,7 @@
 }
 
 .burgerMenu {
-  margin-top: 70px;
-  // background: red;
+  margin-top: 30px;
   width: 270px;
   height: 436px;
 }
@@ -49,8 +48,10 @@
   background: #ebebeb;
   max-width: 70px;
   padding: 5px;
+  margin-bottom: 10px;
 }
 
 .inputLabel {
-  color: red;
+  color: #000;
+  font-size: 18px;
 }

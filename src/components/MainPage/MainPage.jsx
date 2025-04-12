@@ -1,8 +1,10 @@
 import React from "react";
+import { useState } from "react";
 import pack from "../../assets/pack23.png";
 import bg from "../../assets/watchBg-Photoroom.png";
 import znak from "../../assets/znak.svg";
 import Button from "../Button/Button";
+import card from "../../Data/CardData";
 import Container from "../Container/Container";
 import Description from "../Description/Description";
 import FlexBox from "../FlexBox/FlexBox";
@@ -10,10 +12,11 @@ import ShopCardList from "../ShopCardList/ShopCardList";
 import SimpleSlider from "../SimpleSlider/SimpleSlider";
 import Title from "../Title/Title";
 import Input from "../Input/Input";
-import clsx from "clsx";
 import styles from "./MainPage.module.scss";
+import Select from "../Select/Select";
+import ShoppingCart from "../ShoppingCart/ShoppingCart";
 
-export default function MainPage() {
+export default function MainPage({ addProduct, cart }) {
   return (
     <>
       <section className={styles.home}>
@@ -124,18 +127,22 @@ export default function MainPage() {
 
       <section>
         <Container>
-          <FlexBox align="align-center" just="justify-center" gap="20px">
+          <FlexBox just="justify-center" gap="20px">
             <div className={styles.burgerMenu}>
               <span className={styles.inputLabel}>Цена</span>
-              <FlexBox gap="20px">
+              <FlexBox style={{ marginTop: "10px" }} gap="20px">
                 <Input className={styles.input} />
                 <span className={styles.sa}>-</span>
                 <Input className={styles.input} />
               </FlexBox>
+              <FlexBox gap="10px" align="align-start" direction="flex-column">
+                <span className={styles.inputLabel}>Фильтр</span>
+                <Select />
+              </FlexBox>
             </div>
 
             <FlexBox grid="gridThreeColumns">
-              <ShopCardList />
+              <ShopCardList addProduct={addProduct} />
             </FlexBox>
           </FlexBox>
         </Container>

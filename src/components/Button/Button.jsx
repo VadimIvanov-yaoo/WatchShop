@@ -3,6 +3,8 @@ import styles from "./Button.module.scss";
 import clsx from "clsx";
 
 export default function Button({
+  id,
+  addProduct,
   color = "transparentBtn",
   children,
   name = "btn",
@@ -12,6 +14,7 @@ export default function Button({
   return (
     <>
       <button
+        onClick={() => addProduct(id)}
         {...props}
         className={clsx(styles[name], styles[color], styles[size])}
       >
