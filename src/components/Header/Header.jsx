@@ -1,17 +1,16 @@
 import { useState } from "react";
 import logo from "../../assets/logo.svg";
 import loop from "../../assets/loop.svg";
-import pack from "../../assets/pack.svg";
+import pack from "../../assets/shopping-cart2.png";
 import user from "../../assets/user.svg";
 import Container from "../Container/Container";
 import FlexBox from "../FlexBox/FlexBox";
 import HeaderButton from "../HeaderButton/HeaderButton";
 import Nav from "../Nav/Nav";
 import styles from "./Header.module.scss";
-import { Route, Router, Link } from "react-router-dom";
 import ShoppingCart from "../ShoppingCart/ShoppingCart";
 
-export default function Header({ cart }) {
+export default function Header({ cart, count, closeCart }) {
   const [cartOpen, setCartOpen] = useState(false);
   const body = document.getElementById("body");
   const navData = [
@@ -35,18 +34,40 @@ export default function Header({ cart }) {
 
     {
       imageBtn: pack,
-      children: "12 321",
+      children: count,
       onClick: (e) => {
         e.preventDefault();
+
         setCartOpen(!cartOpen);
         if (cartOpen) {
-          body.style.background = "none";
+          restoreBodyStyles();
         } else {
-          body.style.background = "rgba(5, 10, 30, 0.2)";
+          BodyStyles();
         }
       },
     },
   ];
+  const scrollbarWidth =
+    window.innerWidth - document.documentElement.clientWidth;
+  function BodyStyles() {
+    body.style.background = "rgba(5, 10, 30, 0.2)";
+    body.style.overflow = "hidden";
+    body.style.paddingRight = `${scrollbarWidth}px`;
+  }
+
+  function restoreBodyStyles() {
+    body.style.background = "none";
+    body.style.overflow = "auto";
+    body.style.position = "";
+    body.style.width = "";
+    body.style.paddingRight = "";
+  }
+
+  function closeCart(e) {
+    e.preventDefault();
+    setCartOpen(false);
+    restoreBodyStyles();
+  }
 
   return (
     <div className={styles.header}>
@@ -57,6 +78,7 @@ export default function Header({ cart }) {
           align="align-center"
         >
           <img src={logo} alt="logo" />
+
           <Nav navItems={navData} />
           <FlexBox gap="40px">
             {btnData.map((item, index) => (
@@ -70,7 +92,7 @@ export default function Header({ cart }) {
             ))}
           </FlexBox>
         </FlexBox>
-        {cartOpen && <ShoppingCart cart={cart} />}
+        {cartOpen && <ShoppingCart closeCart={closeCart} cart={cart} />}
       </Container>
     </div>
   );

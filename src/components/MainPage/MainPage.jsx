@@ -14,7 +14,6 @@ import Title from "../Title/Title";
 import Input from "../Input/Input";
 import styles from "./MainPage.module.scss";
 import Select from "../Select/Select";
-import ShoppingCart from "../ShoppingCart/ShoppingCart";
 
 export default function MainPage({ addProduct, cart }) {
   return (
@@ -85,10 +84,12 @@ export default function MainPage({ addProduct, cart }) {
                   </Description>
                 </div>
               </FlexBox>
-
               <Button name="transparentBtn">
                 {" "}
-                <img className={styles.imageBtn} src={pack} alt="" />В корзину
+                <img className={styles.imageBtn} src={pack} alt="" />
+                <a className={styles.cartLink} href="#catalog">
+                  В корзину
+                </a>
               </Button>
             </FlexBox>
           </FlexBox>
@@ -125,7 +126,7 @@ export default function MainPage({ addProduct, cart }) {
         </Container>
       </section>
 
-      <section>
+      <section id="catalog">
         <Container>
           <FlexBox just="justify-center" gap="20px">
             <div className={styles.burgerMenu}>

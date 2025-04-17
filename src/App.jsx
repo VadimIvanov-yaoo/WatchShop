@@ -9,6 +9,7 @@ import Authorization from "./components/Authorization/Authorization";
 function App() {
   const location = useLocation();
   const [cart, setCart] = useState([]);
+  const [count, setCount] = useState(0);
 
   function addProduct(id) {
     setCart((prevCart) => {
@@ -20,11 +21,13 @@ function App() {
       const product = card.find((item) => item.id === id);
       return [...prevCart, { ...product, quantity: 1 }];
     });
+
+    setCount((prev) => prev + 1);
   }
 
   return (
     <>
-      {location.pathname !== "/login" && <Header cart={cart} />}
+      {location.pathname !== "/login" && <Header count={count} cart={cart} />}
       <Routes>
         <Route
           path="/"

@@ -1,5 +1,5 @@
 .cart {
-  position: relative;
+  position: fixed;
   padding: 20px;
   display: flex;
   flex-direction: column;
@@ -16,6 +16,13 @@
   border-radius: 20px;
   z-index: 2;
   overflow: auto;
+
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.cart.open {
+  transform: translateX(0);
+  opacity: 1;
 }
 
 .cartContent {
@@ -78,4 +85,8 @@ td {
 
 .totalSum {
   font-size: 18px;
+}
+
+.closeBtn:hover {
+  opacity: 50%;
 }

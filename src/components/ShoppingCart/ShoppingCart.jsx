@@ -1,14 +1,38 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import Button from "../Button/Button";
+import FlexBox from "../FlexBox/FlexBox";
 import Title from "../Title/Title";
 import TrashBtn from "../TrashBtn/TrashBtn";
 import styles from "./ShoppingCart.module.scss";
-import Button from "../Button/Button";
-import FlexBox from "../FlexBox/FlexBox";
+import close from "../../assets/x.png";
 
-export default function ShoppingCart({ cart = [] }) {
+export default function ShoppingCart({ cart = [], closeCart }) {
+  const [total, setTotal] = useState(0);
+
+  useEffect(() => {
+    totalSum();
+  }, [cart]);
+
+  function totalSum() {
+    const sum = cart.reduce((acc, item) => {
+      const price = parseInt(item.cardPrice.replace(/\s/g, ""), 10);
+      return acc + price * item.quantity;
+    }, 0);
+    setTotal(sum);
+  }
+
   return (
     <div className={styles.cart}>
-      <h1 className={styles.title}>Корзина</h1>
+      <FlexBox
+        style={{ padding: "0px 20px" }}
+        align="align-center"
+        just="between"
+      >
+        <h1 className={styles.title}>Корзина</h1>
+        <button className={styles.closeBtn} onClick={closeCart}>
+          <img src={close} alt="" />
+        </button>
+      </FlexBox>
 
       <div className={styles.cartContent}>
         <table className={styles.table}>
@@ -46,7 +70,7 @@ export default function ShoppingCart({ cart = [] }) {
         <FlexBox just="between" gap="20px" align="align-center">
           <div className={styles.total}>
             <strong style={{ fontSize: "20px" }}>Итого:</strong>
-            <span className={styles.totalSum}>1000</span>
+            <span className={styles.totalSum}> {total} ₽ </span>
           </div>
           <Button color="orange" size="cardbtn">
             К оформлению
