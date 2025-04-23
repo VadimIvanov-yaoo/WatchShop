@@ -15,11 +15,11 @@ export default function Button({
   ...props
 }) {
   const [visible, setVisible] = useState(false);
-  const handleClick = () => {
+  function handleClick() {
     addProduct(id);
     setVisible(true);
     setTimeout(() => setVisible(false), 900);
-  };
+  }
 
   return (
     <Tippy content="Добавлено в корзину!" visible={visible} placement="top">

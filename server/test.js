@@ -1,0 +1,82 @@
+import cors from "cors";
+import dotenv from "dotenv";
+import express from "express";
+import mysql from "mysql2";
+dotenv.config();
+
+const connection = mysql.createConnection({
+  host: "localhost",
+  user: "root",
+  database: "authorization",
+  password: "root",
+});
+
+const app = express();
+app.use(express.json());
+const PORT = process.env.PORT || 5000;
+
+connection.connect(function (err) {
+  if (err) {
+    return console.error("Ошибка: " + err.message);
+  } else {
+    console.log("Подключение к серверу MySQL успешно установлено");
+  }
+});
+
+app.use(
+  cors({
+    origin: "http://localhost:5173",
+    methods: ["GET", "POST"],
+  })
+);
+
+app.post("/l", (req, res) => {
+  const { login, password } = req.body;
+  console.log("Получены данные:", login, password);
+  connection.query(
+    {
+      sql: "SELECT * FROM `authorData` WHERE `userLogin` = ?",
+      timeout: 5000,
+    },
+    [login],
+    (error, results) => {
+      if (error) {
+        console.error("Ошибка при выполнении запроса:", error);
+        return res.status(500).json({ error: "Ошибка сервера" });
+      }
+
+      if (results && results.length > 0) {
+        const userData = results[0];
+        const userRes = userData.userLogin;
+        const passwordRes = userData.userPassword;
+
+        if (!userRes) {
+          return res.status(400).json({ message: "Пользователь не найден" });
+        }
+        if (userRes == login && passwordRes == password) {
+          console.log("Вход успешен");
+          res.json({
+            message: "Данные получены успешно!",
+            login,
+            password,
+            results,
+          });
+        } else {
+          res.status(401).json({
+            message: "Неверный логин или пароль",
+          });
+        }
+      } else {
+        return res.status(400).json({ message: "Пользователь не найден" });
+      }
+    }
+  );
+});
+
+app.get("/", (req, res) => {
+  res.send("Сервер test работает!");
+});
+
+app.listen(PORT, () => {
+  console.log(`Сервер работает на порту ${PORT}`);
+});
