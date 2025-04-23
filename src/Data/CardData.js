@@ -1,6 +1,7 @@
 import watch1 from "../assets/watch1.png";
-import watch2 from "../assets/watch2.png";
+import watch22 from "../assets/watch222.png";
 import watch3 from "../assets/watch3.png";
+import watch33 from "../assets/watch33.png";
 import watch4 from "../assets/watch4.png";
 import watch5 from "../assets/watch5.png";
 import watch6 from "../assets/watch6.png";
@@ -17,13 +18,13 @@ const cardData = [
   },
   {
     id: 2,
-    cardImg: watch2,
+    cardImg: watch22,
     cardTitle: "Часы Восток Амфибия 1202",
     cardPrice: "12 300",
   },
   {
     id: 3,
-    cardImg: watch3,
+    cardImg: watch33,
     cardTitle: "Часы Восток Амфибия 1203",
     cardPrice: "11 800",
   },

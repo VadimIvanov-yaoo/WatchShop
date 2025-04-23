@@ -62,9 +62,9 @@ td {
 }
 
 .img {
-  object-fit: cover;
-  height: 80px;
-  // width: 100px;
+  // object-fit: cover;
+  height: 120px;
+  mix-blend-mode: multiply;
 }
 
 .totalWrapper {

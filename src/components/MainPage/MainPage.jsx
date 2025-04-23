@@ -1,10 +1,9 @@
 import React from "react";
 import { useState } from "react";
 import pack from "../../assets/pack23.png";
-import bg from "../../assets/watchBg-Photoroom.png";
+import bg from "../../assets/watchBackg.png";
 import znak from "../../assets/znak.svg";
 import Button from "../Button/Button";
-import card from "../../Data/CardData";
 import Container from "../Container/Container";
 import Description from "../Description/Description";
 import FlexBox from "../FlexBox/FlexBox";
