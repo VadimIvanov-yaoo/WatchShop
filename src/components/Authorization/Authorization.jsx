@@ -6,10 +6,7 @@ import Input from "../Input/Input";
 import styles from "./Authorization.module.scss";
 import { Toaster, toast } from "react-hot-toast";
 
-const loginInput = document.getElementById("loginInput");
-const passwordInput = document.getElementById("passwordInput");
-
-export default function Authorization() {
+export default function Authorization({ onLogin }) {
   const [login, setLogin] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
@@ -22,7 +19,8 @@ export default function Authorization() {
     setPassword(e.target.value);
   }
 
-  function logging() {
+  function logging(e) {
+    // e.preventDefault();
     window.location.href = "/";
   }
 
@@ -42,7 +40,8 @@ export default function Authorization() {
         .then((data) => {
           if (data.message === "Данные получены успешно!") {
             toast.success("Вход успешен");
-            setTimeout(logging, 2500);
+            setTimeout(logging, 2000);
+            onLogin(login);
           } else {
             toast.error("Неверный логин или пароль");
           }
@@ -71,7 +70,6 @@ export default function Authorization() {
             onSubmit={handleSubmit}
           >
             <Input
-              id="loginInput"
               className={styles.input}
               type="text"
               placeholder="Введите логин"
@@ -79,16 +77,20 @@ export default function Authorization() {
               value={login}
             />
             <Input
-              id="passwordInput"
               className={styles.input}
               type="password"
               placeholder="Введите пароль"
               onChange={handlePasswordChange}
               value={password}
             />
-            <Link className={styles.link} to="">
-              Забыли пароль?
-            </Link>
+            <FlexBox just="between">
+              <Link className={styles.link} to="/register">
+                Создать аккаунт
+              </Link>{" "}
+              <Link className={styles.link} to="">
+                Забыли пароль?
+              </Link>
+            </FlexBox>
             <Button type="submit" color="blue">
               Вход
             </Button>

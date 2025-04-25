@@ -7,6 +7,7 @@ export default function Title({
   weight = "normal",
   children,
   indent,
+  color,
 }) {
   return (
     <h1
@@ -15,7 +16,8 @@ export default function Title({
         styles.title,
         styles[size],
         styles[weight],
-        styles[indent]
+        styles[indent],
+        styles[color]
       )}
     >
       {children}

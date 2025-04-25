@@ -2,7 +2,7 @@ import { useState } from "react";
 import logo from "../../assets/logo.svg";
 import loop from "../../assets/loop.svg";
 import pack from "../../assets/shopping-cart2.png";
-import user from "../../assets/user.svg";
+import userImg from "../../assets/user.svg";
 import Container from "../Container/Container";
 import FlexBox from "../FlexBox/FlexBox";
 import HeaderButton from "../HeaderButton/HeaderButton";
@@ -10,8 +10,9 @@ import Nav from "../Nav/Nav";
 import styles from "./Header.module.scss";
 import ShoppingCart from "../ShoppingCart/ShoppingCart";
 
-export default function Header({ cart, count, closeCart }) {
+export default function Header({ user, cart, count, closeCart }) {
   const [cartOpen, setCartOpen] = useState(false);
+  // const [user, setUser] = useState("");
   const body = document.getElementById("body");
   const navData = [
     { linkTitle: "Мужские" },
@@ -27,9 +28,9 @@ export default function Header({ cart, count, closeCart }) {
     },
 
     {
-      imageBtn: user,
-      children: "ВХОД",
-      to: "/login",
+      imageBtn: userImg,
+      children: user ? user : "ВХОД",
+      to: user ? "/" : "/login",
     },
 
     {
@@ -77,7 +78,9 @@ export default function Header({ cart, count, closeCart }) {
           just="between"
           align="align-center"
         >
-          <img src={logo} alt="logo" />
+          <a href="/">
+            <img src={logo} alt="logo" />
+          </a>
 
           <Nav navItems={navData} />
           <FlexBox gap="40px">

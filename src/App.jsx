@@ -5,11 +5,15 @@ import card from "./Data/CardData";
 import Header from "./components/Header/Header";
 import MainPage from "./components/MainPage/MainPage";
 import Authorization from "./components/Authorization/Authorization";
+import Register from "./components/Register/Register";
 
 function App() {
   const location = useLocation();
   const [cart, setCart] = useState([]);
   const [count, setCount] = useState(0);
+  const [user, setUser] = useState(null);
+
+  console.log("Current user:", user);
 
   function addProduct(id) {
     setCart((prevCart) => {
@@ -27,13 +31,16 @@ function App() {
 
   return (
     <>
-      {location.pathname !== "/login" && <Header count={count} cart={cart} />}
+      {location.pathname !== "/login" && location.pathname !== "/register" && (
+        <Header user={user} count={count} cart={cart} />
+      )}
       <Routes>
         <Route
           path="/"
           element={<MainPage cart={cart} addProduct={addProduct} />}
         />
-        <Route path="/login" element={<Authorization />} />
+        <Route path="/login" element={<Authorization onLogin={setUser} />} />
+        <Route path="/register" element={<Register />} />
       </Routes>
     </>
   );

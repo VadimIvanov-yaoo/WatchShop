@@ -13,8 +13,32 @@ import Title from "../Title/Title";
 import Input from "../Input/Input";
 import styles from "./MainPage.module.scss";
 import Select from "../Select/Select";
+import InfoCard from "../InfoCard/InfoCard";
 
 export default function MainPage({ addProduct, cart }) {
+  const infoData = [
+    {
+      infoTitle: "Более 5000 наименований ",
+      infoDescription:
+        "Невероятный выбор часов на любой вкус и кошелек, как премиум так и недорогие ",
+    },
+    {
+      infoTitle: "Собственная доставка ",
+      infoDescription:
+        "Невероятный выбор часов на любой вкус и кошелек, как премиум так и недорогие ",
+    },
+    {
+      infoTitle: "Все способы оплаты ",
+      infoDescription:
+        "Невероятный выбор часов на любой вкус и кошелек, как премиум так и недорогие ",
+    },
+    {
+      infoTitle: "Шоу-румы в 4х городах ",
+      infoDescription:
+        "Невероятный выбор часов на любой вкус и кошелек, как премиум так и недорогие ",
+    },
+  ];
+
   return (
     <>
       <section className={styles.home}>
@@ -125,7 +149,7 @@ export default function MainPage({ addProduct, cart }) {
         </Container>
       </section>
 
-      <section id="catalog">
+      <section style={{ marginBottom: "240px" }} id="catalog">
         <Container>
           <FlexBox just="justify-center" gap="20px">
             <div className={styles.burgerMenu}>
@@ -144,6 +168,47 @@ export default function MainPage({ addProduct, cart }) {
             <FlexBox grid="gridThreeColumns">
               <ShopCardList addProduct={addProduct} />
             </FlexBox>
+          </FlexBox>
+        </Container>
+      </section>
+
+      <section className={styles.info}>
+        <Container>
+          <FlexBox just="around">
+            {infoData.map((item, index) => {
+              return (
+                <InfoCard
+                  key={index}
+                  infoTitle={item.infoTitle}
+                  infoDescription={item.infoDescription}
+                />
+              );
+            })}
+          </FlexBox>
+        </Container>
+      </section>
+
+      <section className={styles.emailBlock}>
+        <Container>
+          <FlexBox
+            style={{ padding: "120px 60px" }}
+            direction="flex-column"
+            gap="20px"
+          >
+            <Title color="white" size="big" weight="medium-bold">
+              Подпишитесь на скидки <br /> и получайте подарки
+            </Title>
+            <Description color="white" size="s24">
+              Обещаем не закидывать спамом, <br /> только полезные письма
+            </Description>
+            <form className={styles.emailForm} action="">
+              <Input
+                type="email"
+                placeholder="Email"
+                className={styles.inputEmail}
+              />
+              <Button color="blue-small">Subscribe</Button>
+            </form>
           </FlexBox>
         </Container>
       </section>

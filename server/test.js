@@ -62,13 +62,54 @@ app.post("/l", (req, res) => {
             results,
           });
         } else {
-          res.status(401).json({
+          return res.status(401).json({
             message: "Неверный логин или пароль",
           });
         }
       } else {
         return res.status(400).json({ message: "Пользователь не найден" });
       }
+    }
+  );
+});
+
+app.post("/r", (req, res) => {
+  const { user, password, repeat } = req.body;
+  connection.query(
+    {
+      sql: "SELECT * FROM `authorData` WHERE `userLogin` = ?",
+      timeout: 5000,
+    },
+    [user],
+    (error, results) => {
+      if (error) {
+        console.error("Ошибка при выполнении запроса:", error);
+        return res.status(500).json({ error: "Ошибка сервера" });
+      }
+
+      if (results.length > 0) {
+        return res.status(400).json({ message: "Пользователь уже существует" });
+      }
+      if (!user || !password || !repeat) {
+        return res.status(400).json({ message: "Поля не заполнены" });
+      }
+
+      if (password != repeat) {
+        return res.status(400).json({ message: "Пароли не совпадают" });
+      }
+
+      connection.query(
+        "INSERT INTO authorData(userLogin, userPassword) VALUES (?, ?)",
+        [user, password],
+        (error, results) => {
+          if (error) {
+            console.error("Ошибка при выполнении запроса:", error);
+            return res.status(500).json({ error: "Ошибка сервера" });
+          }
+
+          return res.status(200).json({ message: "Данные получены успешно!" });
+        }
+      );
     }
   );
 });
