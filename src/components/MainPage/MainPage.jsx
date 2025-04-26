@@ -14,6 +14,7 @@ import Input from "../Input/Input";
 import styles from "./MainPage.module.scss";
 import Select from "../Select/Select";
 import InfoCard from "../InfoCard/InfoCard";
+import Footer from "../Footer/Footer";
 
 export default function MainPage({ addProduct, cart }) {
   const infoData = [
@@ -212,6 +213,8 @@ export default function MainPage({ addProduct, cart }) {
           </FlexBox>
         </Container>
       </section>
+
+      <Footer></Footer>
     </>
   );
 }

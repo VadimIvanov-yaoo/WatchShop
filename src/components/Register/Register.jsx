@@ -26,6 +26,7 @@ export default function Register() {
     setRepeat(e.target.value);
   }
   function logging() {
+    window.localStorage.setItem("name", user);
     window.location.href = "/";
   }
 

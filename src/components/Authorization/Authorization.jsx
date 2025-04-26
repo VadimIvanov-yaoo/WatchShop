@@ -21,6 +21,7 @@ export default function Authorization({ onLogin }) {
 
   function logging(e) {
     // e.preventDefault();
+    window.localStorage.setItem("name", login);
     window.location.href = "/";
   }
 

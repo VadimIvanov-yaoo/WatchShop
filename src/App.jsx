@@ -13,8 +13,6 @@ function App() {
   const [count, setCount] = useState(0);
   const [user, setUser] = useState(null);
 
-  console.log("Current user:", user);
-
   function addProduct(id) {
     setCart((prevCart) => {
       if (prevCart.some((item) => item.id === id)) {

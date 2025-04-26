@@ -1,4 +1,5 @@
 import { useState } from "react";
+import logout from "../../assets/log-out.png";
 import logo from "../../assets/logo.svg";
 import loop from "../../assets/loop.svg";
 import pack from "../../assets/shopping-cart2.png";
@@ -7,19 +8,34 @@ import Container from "../Container/Container";
 import FlexBox from "../FlexBox/FlexBox";
 import HeaderButton from "../HeaderButton/HeaderButton";
 import Nav from "../Nav/Nav";
-import styles from "./Header.module.scss";
 import ShoppingCart from "../ShoppingCart/ShoppingCart";
+import styles from "./Header.module.scss";
 
 export default function Header({ user, cart, count, closeCart }) {
   const [cartOpen, setCartOpen] = useState(false);
-  // const [user, setUser] = useState("");
   const body = document.getElementById("body");
+  const name = window.localStorage.getItem("name");
+
+  function isUserLoggedIn() {
+    return Boolean(
+      name && name !== "undefined" && name !== "null" && name.trim() !== ""
+    );
+  }
+
+  const isLoggedIn = isUserLoggedIn();
+
+  function disabled(e) {
+    e.preventDefault();
+    console.log("aslhdaslkj");
+  }
+
   const navData = [
     { linkTitle: "Мужские" },
     { linkTitle: "Женские" },
     { linkTitle: "Детские" },
     { linkTitle: "Аксессуары" },
   ];
+  let a;
 
   const btnData = [
     {
@@ -29,8 +45,9 @@ export default function Header({ user, cart, count, closeCart }) {
 
     {
       imageBtn: userImg,
-      children: user ? user : "ВХОД",
+      children: name ? name : "ВХОД",
       to: user ? "/" : "/login",
+      onClick: isLoggedIn ? disabled : " ",
     },
 
     {
@@ -47,6 +64,18 @@ export default function Header({ user, cart, count, closeCart }) {
         }
       },
     },
+
+    isLoggedIn
+      ? {
+          imageBtn: logout,
+          children: "Выход",
+          to: "/",
+          onClick: (e) => {
+            window.localStorage.removeItem("name");
+            location.reload();
+          },
+        }
+      : null,
   ];
   const scrollbarWidth =
     window.innerWidth - document.documentElement.clientWidth;
@@ -84,7 +113,7 @@ export default function Header({ user, cart, count, closeCart }) {
 
           <Nav navItems={navData} />
           <FlexBox gap="40px">
-            {btnData.map((item, index) => (
+            {btnData.filter(Boolean).map((item, index) => (
               <HeaderButton
                 key={index}
                 children={item.children}

@@ -1,0 +1,97 @@
+.footer {
+  padding: 100px 20px;
+  background-color: #f8f9fa;
+}
+
+.flexRow {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  gap: 40px;
+}
+
+.flexColumn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
+.logo {
+  //   width: 120px;
+  margin-bottom: 15px;
+}
+
+.description {
+  font-size: 16px;
+  color: #6c757d;
+  text-align: center;
+  max-width: 400px;
+}
+
+.social {
+  margin-top: 20px;
+}
+
+.contactColumn {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.contactInfo {
+  color: #6c757d;
+  font-size: 16px;
+}
+
+.subscription {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.input {
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  margin-bottom: 10px;
+  width: 250px;
+}
+
+.button {
+  padding: 10px 20px;
+  margin-top: -10px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.button:hover {
+  background-color: #0056b3;
+}
+
+.footerBottom {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.policyLink {
+  font-size: 15px;
+  color: #007bff;
+  text-decoration: none;
+}
+
+.policyLink:hover {
+  color: #0056b3;
+}
+
+.copyRight {
+  font-size: 14px;
+  color: #6c757d;
+}
