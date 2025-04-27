@@ -6,7 +6,7 @@ import TrashBtn from "../TrashBtn/TrashBtn";
 import styles from "./ShoppingCart.module.scss";
 import close from "../../assets/x.png";
 
-export default function ShoppingCart({ cart = [], closeCart }) {
+export default function ShoppingCart({ removeProduct, cart = [], closeCart }) {
   const [total, setTotal] = useState(0);
 
   useEffect(() => {
@@ -19,6 +19,10 @@ export default function ShoppingCart({ cart = [], closeCart }) {
       return acc + price * item.quantity;
     }, 0);
     setTotal(sum);
+  }
+
+  function handleClick(id) {
+    removeProduct(id);
   }
 
   return (
@@ -49,7 +53,7 @@ export default function ShoppingCart({ cart = [], closeCart }) {
               <tr key={item.id}>
                 <td>
                   <span className={styles.product}>
-                    <TrashBtn />
+                    <TrashBtn onClick={() => handleClick(item.id)} />
                     <img className={styles.img} src={item.cardImg} alt="" />
                     <Title>{item.cardTitle}</Title>
                   </span>

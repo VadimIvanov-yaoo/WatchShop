@@ -11,7 +11,13 @@ import Nav from "../Nav/Nav";
 import ShoppingCart from "../ShoppingCart/ShoppingCart";
 import styles from "./Header.module.scss";
 
-export default function Header({ user, cart, count, closeCart }) {
+export default function Header({
+  removeProduct,
+  user,
+  cart,
+  count,
+  closeCart,
+}) {
   const [cartOpen, setCartOpen] = useState(false);
   const body = document.getElementById("body");
   const name = window.localStorage.getItem("name");
@@ -26,7 +32,6 @@ export default function Header({ user, cart, count, closeCart }) {
 
   function disabled(e) {
     e.preventDefault();
-    console.log("aslhdaslkj");
   }
 
   const navData = [
@@ -124,7 +129,13 @@ export default function Header({ user, cart, count, closeCart }) {
             ))}
           </FlexBox>
         </FlexBox>
-        {cartOpen && <ShoppingCart closeCart={closeCart} cart={cart} />}
+        {cartOpen && (
+          <ShoppingCart
+            removeProduct={removeProduct}
+            closeCart={closeCart}
+            cart={cart}
+          />
+        )}
       </Container>
     </div>
   );

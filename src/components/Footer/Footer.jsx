@@ -10,59 +10,53 @@ export default function Footer() {
   return (
     <footer className={styles.footer}>
       <Container>
-        <FlexBox just="around" align="align-center" className={styles.flexRow}>
-          <FlexBox
-            direction="flex-column"
-            align="align-center"
-            className={styles.flexColumn}
-          >
+        <FlexBox just="around" align="align-start">
+          <FlexBox direction="flex-column" align="align-center">
             <img src={logo} alt="Logo" className={styles.logo} />
-            <Description className={styles.description}>
+            <Description>
               Lorem ipsum dolor sit amet consectetur adipisicing elit. <br />
               Corrupti aspernatur quaerat deleniti aut accusamus architecto?
             </Description>
-            <Social className={styles.social} />
-          </FlexBox>
+            <Social />
 
-          <FlexBox
-            direction="flex-column"
-            align="align-start"
-            gap="10px"
-            className={styles.contactColumn}
-          >
-            <p className={styles.contactInfo}>Email: example@mail.com</p>
-            <p className={styles.contactInfo}>Телефон: +7 (999) 123-45-67</p>
-            <p className={styles.contactInfo}>
-              Адрес: г. Москва, ул. Примерная, 1
-            </p>
-
-            <FlexBox
-              align="align-center"
-              gap="gap-2"
-              className={styles.footerBottom}
-            >
-              <a href="#" className={styles.policyLink}>
-                Политика конфиденциальности
-              </a>
-              <p className={styles.copyRight}>
-                &copy; {new Date().getFullYear()} Все права защищены
-              </p>
+            <FlexBox align="align-center" gap="gap-2">
+              <FlexBox gap="20px">
+                <a href="#" className={styles.policyLink}>
+                  Политика конфиденциальности
+                </a>
+                <p className={styles.copyRight}>
+                  &copy; {new Date().getFullYear()} Все права защищены
+                </p>
+              </FlexBox>
             </FlexBox>
           </FlexBox>
 
-          <FlexBox
-            align="align-center"
-            gap="10px"
-            className={styles.subscription}
-          >
-            <input
-              type="email"
-              placeholder="Подпишитесь на новости"
-              className={styles.input}
-            />
-            <button type="submit" className={styles.button}>
-              Подписаться
-            </button>
+          <FlexBox direction="flex-column" gap="40px">
+            <FlexBox just="space-between" gap="20px">
+              <FlexBox direction="flex-column">
+                <b className={styles.contactInfo}>Email:</b>
+                <span>example@mail.com</span>
+              </FlexBox>
+              <FlexBox direction="flex-column">
+                <b className={styles.contactInfo}>Телефон:</b>
+                <span>+7 (999) 123-45-67</span>
+              </FlexBox>
+              <FlexBox direction="flex-column">
+                <b className={styles.contactInfo}>Адрес:</b>
+                <span>г. Тверь наб. Реки Лазури, 1 корпус.1</span>
+              </FlexBox>
+            </FlexBox>
+            <div className={styles.company}>
+              <b className={styles.contactInfo}>О компании:</b>
+              <span className={styles.text}>
+                Мы предлагаем широкий ассортимент часов для мужчин и женщин,
+                включая как классические модели, так и современные смарт-часы. В
+                нашем магазине вы найдете часы различных брендов, которые
+                сочетают стиль, качество и надежность. Мы предоставляем услуги
+                по подбору часов, а также ремонту и обслуживанию, чтобы ваши
+                часы служили вам долго.
+              </span>
+            </div>
           </FlexBox>
         </FlexBox>
       </Container>

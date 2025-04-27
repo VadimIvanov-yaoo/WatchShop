@@ -1,5 +1,4 @@
 import React from "react";
-import { useState } from "react";
 import pack from "../../assets/pack23.png";
 import bg from "../../assets/watchBackg.png";
 import znak from "../../assets/znak.svg";
@@ -7,16 +6,19 @@ import Button from "../Button/Button";
 import Container from "../Container/Container";
 import Description from "../Description/Description";
 import FlexBox from "../FlexBox/FlexBox";
+import Footer from "../Footer/Footer";
+import InfoCard from "../InfoCard/InfoCard";
+import Input from "../Input/Input";
+import Modall from "../Modall/Modall";
+import Select from "../Select/Select";
 import ShopCardList from "../ShopCardList/ShopCardList";
 import SimpleSlider from "../SimpleSlider/SimpleSlider";
 import Title from "../Title/Title";
-import Input from "../Input/Input";
+import { useState } from "react";
 import styles from "./MainPage.module.scss";
-import Select from "../Select/Select";
-import InfoCard from "../InfoCard/InfoCard";
-import Footer from "../Footer/Footer";
 
 export default function MainPage({ addProduct, cart }) {
+  const [state, setState] = useState();
   const infoData = [
     {
       infoTitle: "Более 5000 наименований ",
@@ -39,6 +41,14 @@ export default function MainPage({ addProduct, cart }) {
         "Невероятный выбор часов на любой вкус и кошелек, как премиум так и недорогие ",
     },
   ];
+
+  function click() {
+    window.location.href = "#catalog";
+  }
+
+  function isValue(e) {
+    setState(e.target.value);
+  }
 
   return (
     <>
@@ -108,13 +118,16 @@ export default function MainPage({ addProduct, cart }) {
                   </Description>
                 </div>
               </FlexBox>
-              <Button name="transparentBtn">
+              {/* <Button onCLick={click} name="transparentBtn">
                 {" "}
                 <img className={styles.imageBtn} src={pack} alt="" />
                 <a className={styles.cartLink} href="#catalog">
                   В корзину
                 </a>
-              </Button>
+              </Button> */}
+              <button onClick={click} className={styles.myBtn}>
+                <img className={styles.imageBtn} src={pack} alt="" />В корзину
+              </button>
             </FlexBox>
           </FlexBox>
 
@@ -204,17 +217,20 @@ export default function MainPage({ addProduct, cart }) {
             </Description>
             <form className={styles.emailForm} action="">
               <Input
+                onChange={isValue}
                 type="email"
                 placeholder="Email"
                 className={styles.inputEmail}
               />
-              <Button color="blue-small">Subscribe</Button>
+              <Modall state={state} />
+
+              {/* <Button color="blue-small">Subscribe</Button> */}
             </form>
           </FlexBox>
         </Container>
       </section>
 
-      <Footer></Footer>
+      <Footer />
     </>
   );
 }

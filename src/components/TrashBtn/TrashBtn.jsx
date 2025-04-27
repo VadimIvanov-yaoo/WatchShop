@@ -1,10 +1,10 @@
 import React from "react";
 import styled from "styled-components";
 
-const TrashBtn = () => {
+const TrashBtn = ({ onClick }) => {
   return (
     <StyledWrapper>
-      <button className="deleteButton">
+      <button onClick={onClick} className="deleteButton">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           fill="none"

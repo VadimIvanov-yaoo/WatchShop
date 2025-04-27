@@ -1,0 +1,33 @@
+.container {
+  display: flex;
+  align-items: center;
+  gap: 30px;
+}
+
+.title {
+  font-size: 18px;
+  text-align: center;
+}
+
+.button {
+  background-color: blue;
+  color: white;
+  padding: 8px 16px;
+  border-radius: 6px;
+}
+
+.mailBtn {
+  background: blue;
+  color: white;
+  padding: 10px 30px;
+  border-radius: 12px;
+  color: #fff;
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 48px;
+}
+
+.mailBtn:hover {
+  opacity: 90%;
+}

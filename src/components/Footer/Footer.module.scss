@@ -1,4 +1,5 @@
 .footer {
+  position: relative;
   padding: 100px 20px;
   background-color: #f8f9fa;
 }
@@ -94,4 +95,15 @@
 .copyRight {
   font-size: 14px;
   color: #6c757d;
+}
+
+.text {
+  max-width: 800px;
+}
+
+.company {
+  position: absolute;
+  top: 53%;
+  display: flex;
+  flex-direction: column;
 }

@@ -27,10 +27,32 @@ function App() {
     setCount((prev) => prev + 1);
   }
 
+  function removeProduct(id) {
+    setCart((prevCart) => {
+      const product = prevCart.find((item) => item.id === id);
+
+      if (!product) return prevCart;
+      if (product.quantity > 1) {
+        return prevCart.map((item) =>
+          item.id === id ? { ...item, quantity: item.quantity - 1 } : item
+        );
+      } else {
+        return prevCart.filter((item) => item.id !== id);
+      }
+    });
+
+    setCount((prev) => (prev > 0 ? prev - 1 : 0));
+  }
+
   return (
     <>
       {location.pathname !== "/login" && location.pathname !== "/register" && (
-        <Header user={user} count={count} cart={cart} />
+        <Header
+          removeProduct={removeProduct}
+          user={user}
+          count={count}
+          cart={cart}
+        />
       )}
       <Routes>
         <Route
@@ -45,3 +67,5 @@ function App() {
 }
 
 export default App;
+
+// https://mui.com/base-ui/react-menu/
