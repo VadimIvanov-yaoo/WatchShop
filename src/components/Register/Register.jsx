@@ -25,10 +25,10 @@ export default function Register() {
   function handleRepeat(e) {
     setRepeat(e.target.value);
   }
-  // function logging() {
-  //   window.localStorage.setItem("name", user);
-  //   window.location.href = "/";
-  // }
+  function logging() {
+    window.localStorage.setItem("name", user);
+    navigate("/");
+  }
 
   async function registerUser(e) {
     e.preventDefault();
@@ -46,7 +46,7 @@ export default function Register() {
         .then((data) => {
           if (data.message === "Данные получены успешно!") {
             toast.success("Успешная регистрация");
-            // setTimeout(logging, 2000);
+            setTimeout(logging, 2000);
           } else if (data.message === "Пароли не совпадают") {
             toast.error("Пароли не совпадают");
           } else if (data.message === "Пользователь уже существует") {
@@ -118,9 +118,9 @@ export default function Register() {
                 className={styles.input}
               />
             </FlexBox>
-            <Button onClick={registerUser} color="blue-big">
+            <button className={styles.registerBtn} onClick={registerUser}>
               Создать аккаунт
-            </Button>
+            </button>
             <Toaster position="top-center" reverseOrder={false} />
           </form>
         </div>

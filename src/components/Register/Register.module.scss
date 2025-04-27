@@ -77,3 +77,18 @@
     padding: 10px 14px;
   }
 }
+
+.registerBtn {
+  display: flex;
+  padding: 18px 56px;
+  justify-content: center;
+  align-items: center;
+  border-radius: 9px;
+  gap: 10px;
+  font-size: 20px;
+  font-weight: 500;
+  background: rgba(53, 99, 248, 0.879);
+  color: white;
+  max-height: 63px;
+  padding: 14px 36px;
+}

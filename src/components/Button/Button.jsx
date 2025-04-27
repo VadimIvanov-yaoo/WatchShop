@@ -12,7 +12,6 @@ export default function Button({
   children,
   name = "btn",
   size,
-  onClick,
   ...props
 }) {
   const [visible, setVisible] = useState(false);
