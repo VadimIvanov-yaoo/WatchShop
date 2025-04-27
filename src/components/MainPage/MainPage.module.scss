@@ -64,9 +64,11 @@ html {
 .input {
   position: relative;
   border-radius: 6px;
-  background: #ebebeb;
-  max-width: 70px;
-  padding: 5px;
+  background: #ffffff;
+  max-width: 85px;
+  // height: 40px;
+  border: 1px solid gray;
+  padding: 10px;
   margin-bottom: 10px;
 }
 
@@ -97,6 +99,10 @@ html {
   z-index: -1;
 }
 
+.catalogWrapper {
+  min-height: 400px;
+  width: 1272px;
+}
 .emailBlock {
   background-image: url(../../assets/emailBg.png);
   background-repeat: no-repeat;
@@ -118,5 +124,10 @@ html {
   gap: 20px;
 }
 
-.imageBtn {
+.burgerWrapper {
+  position: relative;
+}
+
+.inputDash {
+  margin-top: 8px;
 }

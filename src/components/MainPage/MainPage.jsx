@@ -1,8 +1,7 @@
-import React from "react";
+import React, { useState } from "react";
 import pack from "../../assets/pack23.png";
 import bg from "../../assets/watchBackg.png";
 import znak from "../../assets/znak.svg";
-import Button from "../Button/Button";
 import Container from "../Container/Container";
 import Description from "../Description/Description";
 import FlexBox from "../FlexBox/FlexBox";
@@ -14,11 +13,23 @@ import Select from "../Select/Select";
 import ShopCardList from "../ShopCardList/ShopCardList";
 import SimpleSlider from "../SimpleSlider/SimpleSlider";
 import Title from "../Title/Title";
-import { useState } from "react";
 import styles from "./MainPage.module.scss";
 
 export default function MainPage({ addProduct, cart }) {
   const [state, setState] = useState();
+
+  const [priceStart, setPriceStart] = useState("");
+  const [priceEnd, setPriceEnd] = useState("");
+
+  function startPrice(e) {
+    const value = e.target.value;
+    setPriceStart(value ? parseFloat(value) : "");
+  }
+  function endPrice(e) {
+    const value = e.target.value;
+    setPriceEnd(value ? parseFloat(value) : "");
+  }
+
   const infoData = [
     {
       infoTitle: "Более 5000 наименований ",
@@ -42,7 +53,7 @@ export default function MainPage({ addProduct, cart }) {
     },
   ];
 
-  function click() {
+  function onCatalog() {
     window.location.href = "#catalog";
   }
 
@@ -118,14 +129,7 @@ export default function MainPage({ addProduct, cart }) {
                   </Description>
                 </div>
               </FlexBox>
-              {/* <Button onCLick={click} name="transparentBtn">
-                {" "}
-                <img className={styles.imageBtn} src={pack} alt="" />
-                <a className={styles.cartLink} href="#catalog">
-                  В корзину
-                </a>
-              </Button> */}
-              <button onClick={click} className={styles.myBtn}>
+              <button onClick={onCatalog} className={styles.myBtn}>
                 <img className={styles.imageBtn} src={pack} alt="" />В корзину
               </button>
             </FlexBox>
@@ -166,22 +170,37 @@ export default function MainPage({ addProduct, cart }) {
       <section style={{ marginBottom: "240px" }} id="catalog">
         <Container>
           <FlexBox just="justify-center" gap="20px">
-            <div className={styles.burgerMenu}>
-              <span className={styles.inputLabel}>Цена</span>
-              <FlexBox style={{ marginTop: "10px" }} gap="20px">
-                <Input className={styles.input} />
-                <span className={styles.sa}>-</span>
-                <Input className={styles.input} />
-              </FlexBox>
-              <FlexBox gap="10px" align="align-start" direction="flex-column">
-                <span className={styles.inputLabel}>Фильтр</span>
-                <Select />
+            <div className={styles.burgerWrapper}>
+              <div className={styles.burgerMenu}>
+                <span className={styles.inputLabel}>Цена</span>
+                <FlexBox style={{ marginTop: "10px" }} gap="20px">
+                  <Input
+                    type="number"
+                    onChange={startPrice}
+                    className={styles.input}
+                  />
+                  <span className={styles.inputDash}>-</span>
+                  <Input
+                    type="number"
+                    onChange={endPrice}
+                    className={styles.input}
+                  />
+                </FlexBox>
+                <FlexBox gap="10px" align="align-start" direction="flex-column">
+                  <span className={styles.inputLabel}>Фильтр</span>
+                  <Select />
+                </FlexBox>
+              </div>
+            </div>
+            <div className={styles.catalogWrapper}>
+              <FlexBox grid="gridThreeColumns">
+                <ShopCardList
+                  startPrice={parseFloat(priceStart) || 0}
+                  endPrice={parseFloat(priceEnd) || Infinity}
+                  addProduct={addProduct}
+                />
               </FlexBox>
             </div>
-
-            <FlexBox grid="gridThreeColumns">
-              <ShopCardList addProduct={addProduct} />
-            </FlexBox>
           </FlexBox>
         </Container>
       </section>
