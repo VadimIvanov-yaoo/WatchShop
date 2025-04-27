@@ -75,6 +75,7 @@ app.post("/l", (req, res) => {
 
 app.post("/r", (req, res) => {
   const { user, password, repeat } = req.body;
+  console.log("Получены данные для регистрации:", req.body);
   connection.query(
     {
       sql: "SELECT * FROM `authorData` WHERE `userLogin` = ?",

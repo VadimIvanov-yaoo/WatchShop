@@ -25,7 +25,6 @@ export default function Button({
   return (
     <Tippy content="Добавлено в корзину!" visible={visible} placement="top">
       <button
-        onClick={onClick}
         onClick={handleClick}
         {...props}
         className={clsx(styles[name], styles[color], styles[size])}
