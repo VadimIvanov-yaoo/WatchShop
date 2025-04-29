@@ -2,7 +2,13 @@ import React from "react";
 import card from "../../Data/CardData";
 import ShopingCard from "../ShopingCard/ShopingCard";
 
-export default function ShopCardList({ addProduct, startPrice, endPrice }) {
+export default function ShopCardList({
+  cardClick,
+  addProduct,
+  startPrice,
+  endPrice,
+  handleCardClick,
+}) {
   function sortirovka(item) {
     const price = parseFloat(item.cardPrice.replace(/\s+/g, ""));
     return price >= startPrice && price <= endPrice;
@@ -16,6 +22,8 @@ export default function ShopCardList({ addProduct, startPrice, endPrice }) {
           .filter(sortirovka)
           .map((item) => (
             <ShopingCard
+              handleCardClick={handleCardClick}
+              cardClick={cardClick}
               addProduct={addProduct}
               key={item.id}
               cardId={item.id}

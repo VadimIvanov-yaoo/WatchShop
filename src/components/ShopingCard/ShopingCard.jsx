@@ -4,6 +4,9 @@ import Description from "../Description/Description";
 import FlexBox from "../FlexBox/FlexBox";
 import Title from "../Title/Title";
 import styles from "./ShopingCard.module.scss";
+import Tippy from "@tippyjs/react";
+import "tippy.js/dist/tippy.css";
+import { useState } from "react";
 
 export default function ShopingCard({
   cardId,
@@ -11,9 +14,18 @@ export default function ShopingCard({
   cardTitle,
   cardPrice,
   addProduct,
+  cardClick,
+  handleCardClick,
 }) {
+  const [visible, setVisible] = useState(false);
+  function handleClick() {
+    handleCardClick(cardId);
+    setVisible(true);
+    setTimeout(() => setVisible(false), 900);
+  }
+
   return (
-    <div className={styles.wrapper}>
+    <div onClick={() => cardClick(cardId)} className={styles.wrapper}>
       <FlexBox direction="flex-column" align="align-center">
         <img className={styles.img} src={cardImg} alt="" />
         <div className={styles.contentWrapper}>
@@ -23,14 +35,25 @@ export default function ShopingCard({
           <Description size="s24">
             {cardPrice} <span className={styles.currency}>P</span>
           </Description>
-          <Button
-            addProduct={addProduct}
-            id={cardId}
-            size="cardbtn"
-            name="transparentBtn"
+          <Tippy
+            content="Добавлено в корзину!"
+            visible={visible}
+            placement="top"
           >
-            В корзину
-          </Button>
+            <Button
+              addProduct={addProduct}
+              id={cardId}
+              size="cardbtn"
+              name="transparentBtn"
+              onClick={(e) => {
+                e.stopPropagation();
+                addProduct(cardId);
+                handleClick();
+              }}
+            >
+              В корзину
+            </Button>
+          </Tippy>
         </div>
       </FlexBox>
     </div>

@@ -6,6 +6,7 @@ import Header from "./components/Header/Header";
 import MainPage from "./components/MainPage/MainPage";
 import Authorization from "./components/Authorization/Authorization";
 import Register from "./components/Register/Register";
+import ProductPage from "./components/ProductPage/ProductPage";
 
 function App() {
   const location = useLocation();
@@ -61,6 +62,7 @@ function App() {
         />
         <Route path="/login" element={<Authorization onLogin={setUser} />} />
         <Route path="/register" element={<Register />} />
+        <Route path="/cardPage" element={<ProductPage />} />
       </Routes>
     </>
   );

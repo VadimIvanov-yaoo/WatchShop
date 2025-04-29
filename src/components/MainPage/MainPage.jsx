@@ -14,12 +14,16 @@ import ShopCardList from "../ShopCardList/ShopCardList";
 import SimpleSlider from "../SimpleSlider/SimpleSlider";
 import Title from "../Title/Title";
 import styles from "./MainPage.module.scss";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
-export default function MainPage({ addProduct, cart }) {
+export default function MainPage({ cardClick, addProduct, cardId }) {
   const [state, setState] = useState();
-
   const [priceStart, setPriceStart] = useState("");
   const [priceEnd, setPriceEnd] = useState("");
+  const [productData, setProductData] = useState("");
+
+  const navigate = useNavigate();
 
   function startPrice(e) {
     const value = e.target.value;
@@ -59,6 +63,22 @@ export default function MainPage({ addProduct, cart }) {
 
   function isValue(e) {
     setState(e.target.value);
+  }
+
+  function handleCardClick(cardId) {
+    axios
+      .post("http://localhost:5000/item", { id: cardId })
+      .then((res) => {
+        navigate("/cardPage", { state: res.data });
+        console.log("Данные товара:", res.data);
+      })
+      .catch((err) => {
+        console.error("Ошибка:", err);
+      });
+  }
+
+  function cardClick(cardId) {
+    handleCardClick(cardId);
   }
 
   return (
@@ -195,6 +215,9 @@ export default function MainPage({ addProduct, cart }) {
             <div className={styles.catalogWrapper}>
               <FlexBox grid="gridThreeColumns">
                 <ShopCardList
+                  cardId={cardId}
+                  handleCardClick={handleCardClick}
+                  cardClick={cardClick}
                   startPrice={parseFloat(priceStart) || 0}
                   endPrice={parseFloat(priceEnd) || Infinity}
                   addProduct={addProduct}
@@ -242,8 +265,6 @@ export default function MainPage({ addProduct, cart }) {
                 className={styles.inputEmail}
               />
               <Modall state={state} />
-
-              {/* <Button color="blue-small">Subscribe</Button> */}
             </form>
           </FlexBox>
         </Container>
