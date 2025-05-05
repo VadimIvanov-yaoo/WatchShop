@@ -69,7 +69,7 @@ export default function MainPage({ cardClick, addProduct, cardId }) {
     axios
       .post("http://localhost:5000/item", { id: cardId })
       .then((res) => {
-        navigate("/cardPage", { state: res.data });
+        navigate(`/cardPage/${cardId}`, { state: res.data });
         console.log("Данные товара:", res.data);
       })
       .catch((err) => {
@@ -87,6 +87,7 @@ export default function MainPage({ cardClick, addProduct, cardId }) {
         <Container>
           <FlexBox style={{ padding: "50px 0px" }} gap="40px">
             <img className={styles.image} src={bg} alt="" />
+
             <FlexBox
               style={{ padding: "30px" }}
               gap="30px"

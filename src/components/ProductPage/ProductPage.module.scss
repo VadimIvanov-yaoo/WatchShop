@@ -1,0 +1,20 @@
+.image {
+  object-fit: cover;
+  mix-blend-mode: multiply;
+  width: 800px;
+  height: 600px;
+}
+
+.transparentBtn {
+  display: flex;
+  padding: 18px 56px;
+  justify-content: center;
+  align-items: center;
+  border-radius: 9px;
+  gap: 10px;
+  font-size: 20px;
+  font-weight: 500;
+  border: 2px solid #000;
+  background: #fff;
+  color: #000;
+}

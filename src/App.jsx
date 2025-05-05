@@ -21,7 +21,7 @@ function App() {
           item.id === id ? { ...item, quantity: item.quantity + 1 } : item
         );
       }
-      const product = card.find((item) => item.id === id);
+      const product = card.find((item) => item.id === parseInt(id));
       return [...prevCart, { ...product, quantity: 1 }];
     });
 
@@ -63,6 +63,10 @@ function App() {
         <Route path="/login" element={<Authorization onLogin={setUser} />} />
         <Route path="/register" element={<Register />} />
         <Route path="/cardPage" element={<ProductPage />} />
+        <Route
+          path={`/cardPage/:id`}
+          element={<ProductPage addProduct={addProduct} />}
+        />
       </Routes>
     </>
   );

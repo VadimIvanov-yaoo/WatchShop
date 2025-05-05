@@ -1,7 +1,7 @@
-import React from "react";
-import styles from "./Button.module.scss";
 import clsx from "clsx";
+import React from "react";
 import "tippy.js/dist/tippy.css";
+import styles from "./Button.module.scss";
 
 export default function Button({
   id,
@@ -13,8 +13,11 @@ export default function Button({
   ...props
 }) {
   function handleClick() {
-    addProduct(id);
+    if (typeof addProduct === "function") {
+      addProduct(id);
+    }
   }
+
   return (
     <button
       onClick={handleClick}
