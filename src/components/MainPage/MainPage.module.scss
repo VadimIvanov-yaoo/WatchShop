@@ -2,6 +2,10 @@ html {
   scroll-behavior: smooth;
 }
 
+::-webkit-scrollbar {
+  width: 0;
+}
+
 .myBtn {
   display: flex;
   padding: 18px 56px;

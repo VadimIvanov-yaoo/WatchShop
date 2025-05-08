@@ -15,8 +15,8 @@ function getLabelText(value) {
   return `${value} Star${value !== 1 ? "s" : ""}, ${labels[value]}`;
 }
 
-export default function HoverRating() {
-  const [value, setValue] = React.useState(2);
+export default function HoverRating({ grade, readOnly }) {
+  const [value, setValue] = React.useState(grade);
   const [hover, setHover] = React.useState(-1);
 
   return (
@@ -33,6 +33,7 @@ export default function HoverRating() {
           setHover(newHover);
         }}
         emptyIcon={<StarIcon style={{ opacity: 0.55 }} fontSize="inherit" />}
+        readOnly={readOnly}
       />
       {value !== null && (
         <Box sx={{ ml: 2 }}>{labels[hover !== -1 ? hover : value]}</Box>

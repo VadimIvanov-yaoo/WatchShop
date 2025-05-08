@@ -1,53 +1,98 @@
 import axios from "axios";
+import React, { useEffect, useState } from "react";
+import { useLocation, useParams } from "react-router-dom";
 import pack from "../../assets/pack23.png";
-import React from "react";
-import cardData from "../../Data/CardData";
+import AccordionComponent from "../AccordionComponent/AccordionComponent";
 import Container from "../Container/Container";
 import Description from "../Description/Description";
 import FlexBox from "../FlexBox/FlexBox";
-import Title from "../Title/Title";
-import ModalOrder from "../ModalOrder/ModalOrder";
+import Footer from "../Footer/Footer";
 import Raiting from "../Raiting/Raiting";
+import Rewiews from "../Rewiews/Rewiews";
+import Title from "../Title/Title";
 import styles from "./ProductPage.module.scss";
-import { useLocation, useParams, useSearchParams } from "react-router-dom";
 
 export default function ProductPage({ addProduct }) {
-  const [searchParams, setSearchParams] = useSearchParams();
   const { id } = useParams();
+  const cardId = id;
   const location = useLocation();
-  const products = location.state;
-  const img = products.imageUrl;
-  const product = cardData.find((item) => item.id === parseInt(id));
+  const [product, setProduct] = useState(location.state || null);
+  const [review, setReview] = useState();
+
+  useEffect(() => {
+    if (!product) {
+      axios
+        .post("http://localhost:5000/item", { id })
+        .then((res) => {
+          setProduct(res.data);
+        })
+        .catch((err) => {
+          console.error("Ошибка загрузки товара:", err);
+        });
+    }
+
+    axios
+      .post("http://localhost:5000/review", { id: cardId })
+      .then((res) => {
+        console.log("Отзывы:", res.data);
+        setReview(res.data);
+      })
+      .catch((err) => {
+        console.error("Ошибка:", err);
+      });
+  }, [id, cardId, product]);
+  if (!product) return <p>404 not found</p>;
+  // return <Rewiews review={review} />;
+
+  const accordData = [
+    {
+      accordionTitle: "Характеристика товара",
+      accordionItem: product.productDescription,
+    },
+    {
+      accordionTitle: "Отзывы",
+      accordionItem: <Rewiews review={review} cardId={id} />,
+    },
+  ];
+
+  // axios
+  //   .post("http://localhost:5000/review", { id: cardId })
+  //   .then((res) => {
+  //     // navigate(`/cardPage/${cardId}`, { state: res.data });
+  //     // const state = res.data;
+  //     console.log("Отзывы:", res.data);
+  //   })
+  //   .catch((err) => {
+  //     console.error("Ошибка:", err);
+  //   });
 
   function test() {
     console.log(product);
     addProduct(id);
   }
 
-  if (!products) return <p>Нет данных</p>;
-
   return (
     <>
       <section>
         <Container>
           <FlexBox style={{ padding: "50px" }} just="around">
-            <img className={styles.image} src={img} alt="asdasd" />
+            <img className={styles.image} src={product.imageUrl} alt="товар" />
             <FlexBox
               style={{ padding: "30px" }}
               gap="20px"
               direction="flex-column"
             >
               <Title
-                style={{ textTransform: "uppercase", maxWidth: "300px" }}
+                style={{ textTransform: "uppercase", maxWidth: "350px" }}
                 size="medium-big"
                 weight="bold"
               >
-                {products.productName}
+                {product.productName}
               </Title>
               <Raiting />
               <div className={styles.line}></div>
               <FlexBox gap="10px">
-                <Description size="centerSize">{products.price}</Description>
+                <Description size="centerSize">{product.price}</Description>
                 <Description size="centerSize" color="gray">
                   ₽
                 </Description>
@@ -73,6 +118,7 @@ export default function ProductPage({ addProduct }) {
                     Пылевлагозащита, Противоударные
                   </Description>
                 </div>
+
                 <div>
                   <span className={styles.materials}>Габариты:</span>
                   <Description
@@ -95,13 +141,8 @@ export default function ProductPage({ addProduct }) {
               </FlexBox>
 
               <button className={styles.transparentBtn} onClick={test}>
-                <img className={styles.imageBtn} src={pack} alt="" />В коризну
+                <img className={styles.imageBtn} src={pack} alt="" />В корзину
               </button>
-              {/* 
-            <Button id={id}>
-              <img className={styles.imageBtn} src={pack} alt="" />В коризну
-            </Button> */}
-              {/* <button className={styles.myBtn}></button> */}
             </FlexBox>
           </FlexBox>
         </Container>
@@ -109,11 +150,19 @@ export default function ProductPage({ addProduct }) {
 
       <section>
         <Container>
-          {/* <Modall /> */}
-          <ModalOrder />
-          {/* <button className={styles.transparentBtn}>Смотреть отзывы</button> */}
+          <div className={styles.accordionWrapper}>
+            {accordData.map((el, index) => (
+              <AccordionComponent
+                key={index}
+                accordionTitle={el.accordionTitle}
+                accordionDescription={el.accordionItem}
+              />
+            ))}
+          </div>
         </Container>
       </section>
+
+      <Footer />
     </>
   );
 }

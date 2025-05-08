@@ -1,7 +1,6 @@
-import React, { useState } from "react";
-import pack from "../../assets/pack23.png";
-import bg from "../../assets/watchBackg.png";
-import znak from "../../assets/znak.svg";
+import React, { useState, useContext } from "react";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
 import Container from "../Container/Container";
 import Description from "../Description/Description";
 import FlexBox from "../FlexBox/FlexBox";
@@ -14,14 +13,16 @@ import ShopCardList from "../ShopCardList/ShopCardList";
 import SimpleSlider from "../SimpleSlider/SimpleSlider";
 import Title from "../Title/Title";
 import styles from "./MainPage.module.scss";
-import { useNavigate } from "react-router-dom";
-import axios from "axios";
+import pack from "../../assets/pack23.png";
+import bg from "../../assets/watchBackg.png";
+import znak from "../../assets/znak.svg";
 
 export default function MainPage({ cardClick, addProduct, cardId }) {
   const [state, setState] = useState();
   const [priceStart, setPriceStart] = useState("");
   const [priceEnd, setPriceEnd] = useState("");
   const [productData, setProductData] = useState("");
+  // const cardIdContext = useContext(cardId);
 
   const navigate = useNavigate();
 

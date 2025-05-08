@@ -4,7 +4,7 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "start": "node server/test.js && node server/productList.js",
+    "start": "node server/test.js",
     "dev": "vite",
     "build": "vite build",
     "lint": "eslint .",
@@ -31,6 +31,7 @@
     "jquery": "^3.7.1",
     "mysql2": "^3.14.0",
     "react": "^19.1.0",
+    "react-accessible-accordion": "^5.0.1",
     "react-dom": "^19.1.0",
     "react-hot-toast": "^2.5.2",
     "react-modal": "^3.16.3",

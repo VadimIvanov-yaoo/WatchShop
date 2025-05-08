@@ -8,23 +8,18 @@ const Modal = ({ isOpen, onClose }) => {
   if (!isOpen) return null;
 
   return (
-    <div style={modalBackdropStyle}>
+    <div className={styles.wrapper} style={modalBackdropStyle}>
       <div className={styles.container} style={modalStyle}>
         <h2 className={styles.title}>Создание отзыва</h2>
         <form className={styles.form} action="">
           <FlexBox align="align-center" just="between" gap="35px">
-            <Title size="medium">ФИО</Title>
+            <Title size="medium">Имя</Title>
             <Input className={styles.input} placeholder="Введите ваше имя" />
           </FlexBox>
 
-          <FlexBox align="align-center" just="between" gap="28px">
+          <FlexBox align="align-center" just="between" gap="23px">
             <Title size="medium">Описание</Title>
-            {/* <Input
-              as="textarea"
-              className={styles.input}
-              placeholder="Опишите ваш отзыв"
-              rows={4}
-            /> */}
+
             <textarea
               className={styles.textarea}
               placeholder="Введите описание "

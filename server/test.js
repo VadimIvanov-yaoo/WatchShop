@@ -18,6 +18,13 @@ const connectionProduct = mysql.createConnection({
   password: "root",
 });
 
+const connectionRewiew = mysql.createConnection({
+  host: "localhost",
+  user: "root",
+  database: "rewiewsbase",
+  password: "root",
+});
+
 const app = express();
 app.use(express.json());
 const PORT = process.env.PORT || 5000;
@@ -141,6 +148,29 @@ app.post("/item", (req, res) => {
       }
 
       res.json(results[0]);
+    }
+  );
+});
+
+app.post("/review", (req, res) => {
+  const { id } = req.body;
+  console.log("Получены данные:", id);
+  connectionRewiew.query(
+    {
+      sql: "SELECT * FROM `review` WHERE `idProduct` = ?",
+      timeout: 5000,
+    },
+    [id],
+    (error, results) => {
+      if (error) {
+        console.error("Ошибка при выполнении запроса:", error);
+        return res.status(500).json({ error: "Ошибка сервера" });
+      }
+      if (results.length === 0) {
+        return res.status(404).json({ message: "Отзыв не найден" });
+      }
+
+      res.json(results);
     }
   );
 });

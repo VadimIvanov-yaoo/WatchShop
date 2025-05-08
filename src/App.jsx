@@ -7,6 +7,7 @@ import MainPage from "./components/MainPage/MainPage";
 import Authorization from "./components/Authorization/Authorization";
 import Register from "./components/Register/Register";
 import ProductPage from "./components/ProductPage/ProductPage";
+import Rewiews from "./components/Rewiews/Rewiews";
 
 function App() {
   const location = useLocation();
@@ -63,6 +64,7 @@ function App() {
         <Route path="/login" element={<Authorization onLogin={setUser} />} />
         <Route path="/register" element={<Register />} />
         <Route path="/cardPage" element={<ProductPage />} />
+        <Route path="/review" element={<Rewiews />} />
         <Route
           path={`/cardPage/:id`}
           element={<ProductPage addProduct={addProduct} />}

@@ -40,7 +40,6 @@ export default function Header({
     { linkTitle: "Детские" },
     { linkTitle: "Аксессуары" },
   ];
-  let a;
 
   const btnData = [
     {
