@@ -19,6 +19,9 @@ export default function HoverRating({ grade, readOnly }) {
   const [value, setValue] = React.useState(grade);
   const [hover, setHover] = React.useState(-1);
 
+  // const totalGrade = grade.reduce((sum, grade) => sum + grade, 0);
+  // console.log(totalGrade);
+
   return (
     <Box sx={{ width: 200, display: "flex", alignItems: "center" }}>
       <Rating

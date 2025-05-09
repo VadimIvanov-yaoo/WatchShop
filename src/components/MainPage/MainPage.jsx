@@ -22,8 +22,6 @@ export default function MainPage({ cardClick, addProduct, cardId }) {
   const [priceStart, setPriceStart] = useState("");
   const [priceEnd, setPriceEnd] = useState("");
   const [productData, setProductData] = useState("");
-  // const cardIdContext = useContext(cardId);
-
   const navigate = useNavigate();
 
   function startPrice(e) {

@@ -19,8 +19,9 @@ export default function ShopingCard({
   handleCardClick,
 }) {
   const [visible, setVisible] = useState(false);
+  const [averageTotal, setAverageTotal] = useState(0);
+
   function handleClick() {
-    // handleCardClick(cardId);
     setVisible(true);
     setTimeout(() => setVisible(false), 900);
   }

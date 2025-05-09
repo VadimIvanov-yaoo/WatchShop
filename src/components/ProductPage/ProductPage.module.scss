@@ -5,6 +5,22 @@
   height: 600px;
 }
 
+.starImage {
+  width: 22px;
+  height: 22px;
+}
+
+.averageRaiting {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.starWrapper {
+  display: flex;
+  gap: 8px;
+}
 .transparentBtn {
   display: flex;
   padding: 18px 56px;

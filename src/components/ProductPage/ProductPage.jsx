@@ -1,23 +1,25 @@
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useLocation, useParams } from "react-router-dom";
 import pack from "../../assets/pack23.png";
 import AccordionComponent from "../AccordionComponent/AccordionComponent";
 import Container from "../Container/Container";
+import star from "../../assets/star.png";
 import Description from "../Description/Description";
 import FlexBox from "../FlexBox/FlexBox";
 import Footer from "../Footer/Footer";
-import Raiting from "../Raiting/Raiting";
 import Rewiews from "../Rewiews/Rewiews";
 import Title from "../Title/Title";
 import styles from "./ProductPage.module.scss";
+import ShopingCard from "../ShopingCard/ShopingCard";
 
 export default function ProductPage({ addProduct }) {
   const { id } = useParams();
   const cardId = id;
   const location = useLocation();
   const [product, setProduct] = useState(location.state || null);
-  const [review, setReview] = useState();
+  const [review, setReview] = useState([]);
+  const [totalGrade, setTotalGrade] = useState(0);
 
   useEffect(() => {
     if (!product) {
@@ -30,19 +32,28 @@ export default function ProductPage({ addProduct }) {
           console.error("Ошибка загрузки товара:", err);
         });
     }
+  }, [id, product]);
 
-    axios
-      .post("http://localhost:5000/review", { id: cardId })
-      .then((res) => {
-        console.log("Отзывы:", res.data);
-        setReview(res.data);
-      })
-      .catch((err) => {
-        console.error("Ошибка:", err);
-      });
+  useEffect(() => {
+    if (product) {
+      axios
+        .post("http://localhost:5000/review", { id: cardId })
+        .then((res) => {
+          const newData = res.data.map((item) => Object.values(item));
+          setReview(res.data);
+          const total = newData.reduce((sum, item) => sum + item[3], 0);
+          setTotalGrade(total);
+        })
+        .catch((err) => {
+          console.error("Ошибка загрузки отзывов:", err);
+        });
+    }
   }, [id, cardId, product]);
+
+  const sum = review.length ? totalGrade / review.length : 0;
+  const average = sum.toFixed(1);
+
   if (!product) return <p>404 not found</p>;
-  // return <Rewiews review={review} />;
 
   const accordData = [
     {
@@ -50,21 +61,18 @@ export default function ProductPage({ addProduct }) {
       accordionItem: product.productDescription,
     },
     {
-      accordionTitle: "Отзывы",
+      accordionTitle: (
+        <div className={styles.averageRaiting}>
+          Отзывы
+          <span className={styles.starWrapper}>
+            <img className={styles.starImage} src={star} alt="звезда" />{" "}
+            {average}
+          </span>
+        </div>
+      ),
       accordionItem: <Rewiews review={review} cardId={id} />,
     },
   ];
-
-  // axios
-  //   .post("http://localhost:5000/review", { id: cardId })
-  //   .then((res) => {
-  //     // navigate(`/cardPage/${cardId}`, { state: res.data });
-  //     // const state = res.data;
-  //     console.log("Отзывы:", res.data);
-  //   })
-  //   .catch((err) => {
-  //     console.error("Ошибка:", err);
-  //   });
 
   function test() {
     console.log(product);
@@ -89,7 +97,7 @@ export default function ProductPage({ addProduct }) {
               >
                 {product.productName}
               </Title>
-              <Raiting />
+
               <div className={styles.line}></div>
               <FlexBox gap="10px">
                 <Description size="centerSize">{product.price}</Description>

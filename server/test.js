@@ -175,6 +175,27 @@ app.post("/review", (req, res) => {
   );
 });
 
+app.post("/reviewWrite", (req, res) => {
+  const { name, cardId, value, description, reviewDate } = req.body;
+  console.log("Получены данные для отзывов:", req.body);
+
+  if (value == 0) {
+    return res.status(200).json({ message: "Ошибка" });
+  }
+
+  connectionRewiew.query(
+    "INSERT INTO review(nameUser, idProduct, raiting, reviewDescription, rewiewDate) VALUES (?, ?, ?, ?, ?)",
+    [name, cardId, value, description, reviewDate],
+    (error, results) => {
+      if (error) {
+        console.error("Ошибка при выполнении запроса:", error);
+        return res.status(500).json({ error: "Ошибка сервера" });
+      }
+      return res.status(200).json({ message: "Данные получены успешно!" });
+    }
+  );
+});
+
 app.get("/", (req, res) => {
   res.send("Сервер test работает!");
 });
