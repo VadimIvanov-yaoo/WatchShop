@@ -8,6 +8,7 @@ import Authorization from "./components/Authorization/Authorization";
 import Register from "./components/Register/Register";
 import ProductPage from "./components/ProductPage/ProductPage";
 import Rewiews from "./components/Rewiews/Rewiews";
+import OrderFrom from "./components/OrderFrom/OrderFrom";
 
 function App() {
   const location = useLocation();
@@ -48,14 +49,16 @@ function App() {
 
   return (
     <>
-      {location.pathname !== "/login" && location.pathname !== "/register" && (
-        <Header
-          removeProduct={removeProduct}
-          user={user}
-          count={count}
-          cart={cart}
-        />
-      )}
+      {location.pathname !== "/login" &&
+        location.pathname !== "/register" &&
+        location.pathname !== "/order" && (
+          <Header
+            removeProduct={removeProduct}
+            user={user}
+            count={count}
+            cart={cart}
+          />
+        )}
       <Routes>
         <Route
           path="/"
@@ -65,6 +68,7 @@ function App() {
         <Route path="/register" element={<Register />} />
         <Route path="/cardPage" element={<ProductPage />} />
         <Route path="/review" element={<Rewiews />} />
+        <Route path="/order" element={<OrderFrom />} />
         <Route
           path={`/cardPage/:id`}
           element={<ProductPage addProduct={addProduct} />}

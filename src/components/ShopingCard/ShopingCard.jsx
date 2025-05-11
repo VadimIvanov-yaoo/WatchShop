@@ -19,7 +19,7 @@ export default function ShopingCard({
   handleCardClick,
 }) {
   const [visible, setVisible] = useState(false);
-  const [averageTotal, setAverageTotal] = useState(0);
+  // const [averageTotal, setAverageTotal] = useState(0);
 
   function handleClick() {
     setVisible(true);
@@ -34,7 +34,6 @@ export default function ShopingCard({
           <Title size="s18" weight="bold">
             {cardTitle}
           </Title>
-          <Raiting />
           <Description size="s24">
             {cardPrice} <span className={styles.currency}>P</span>
           </Description>

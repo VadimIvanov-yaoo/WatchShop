@@ -5,10 +5,7 @@ import FlexBox from "../FlexBox/FlexBox";
 import Input from "../Input/Input";
 import RaitingOrder from "../RaitingOrder/RaitingOrder";
 import Title from "../Title/Title";
-import styles from "./ModalOrder.module.scss";
-// import { Toaster } from "react-hot-toast";
-
-// import { RatingOrder } from "@mui/material";
+import styles from "./ModalReview.module.scss";
 import axios from "axios";
 
 const Modal = ({ isOpen, onClose }) => {

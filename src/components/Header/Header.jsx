@@ -81,12 +81,10 @@ export default function Header({
         }
       : null,
   ];
-  const scrollbarWidth =
-    window.innerWidth - document.documentElement.clientWidth;
+
   function BodyStyles() {
     body.style.background = "rgba(5, 10, 30, 0.2)";
     body.style.overflow = "hidden";
-    body.style.paddingRight = `${scrollbarWidth}px`;
   }
 
   function restoreBodyStyles() {
@@ -94,11 +92,10 @@ export default function Header({
     body.style.overflow = "auto";
     body.style.position = "";
     body.style.width = "";
-    body.style.paddingRight = "";
   }
 
   function closeCart(e) {
-    e.preventDefault();
+    e?.preventDefault();
     setCartOpen(false);
     restoreBodyStyles();
   }

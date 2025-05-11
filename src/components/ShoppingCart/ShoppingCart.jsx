@@ -1,13 +1,15 @@
-import React, { useEffect, useState } from "react";
-import Button from "../Button/Button";
+import { useEffect, useState } from "react";
+import { Toaster, toast } from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
+import close from "../../assets/x.png";
 import FlexBox from "../FlexBox/FlexBox";
 import Title from "../Title/Title";
 import TrashBtn from "../TrashBtn/TrashBtn";
 import styles from "./ShoppingCart.module.scss";
-import close from "../../assets/x.png";
 
 export default function ShoppingCart({ removeProduct, cart = [], closeCart }) {
   const [total, setTotal] = useState(0);
+  const navigate = useNavigate();
 
   useEffect(() => {
     totalSum();
@@ -25,6 +27,15 @@ export default function ShoppingCart({ removeProduct, cart = [], closeCart }) {
     removeProduct(id);
   }
 
+  function addOrder() {
+    if (cart.length !== 0) {
+      closeCart();
+      navigate("/order");
+    } else {
+      toast.error("Корзина пуста");
+    }
+  }
+
   return (
     <div className={styles.cart}>
       <FlexBox
@@ -39,6 +50,7 @@ export default function ShoppingCart({ removeProduct, cart = [], closeCart }) {
       </FlexBox>
 
       <div className={styles.cartContent}>
+        <Toaster position="top-center" reverseOrder={false} />
         <table className={styles.table}>
           <thead>
             <tr>
@@ -76,9 +88,9 @@ export default function ShoppingCart({ removeProduct, cart = [], closeCart }) {
             <strong style={{ fontSize: "20px" }}>Итого:</strong>
             <span className={styles.totalSum}> {total} ₽ </span>
           </div>
-          <Button color="orange" size="cardbtn">
+          <button onClick={addOrder} className={styles.orangeButton}>
             К оформлению
-          </Button>
+          </button>
         </FlexBox>
       </div>
     </div>

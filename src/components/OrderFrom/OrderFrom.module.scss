@@ -1,0 +1,36 @@
+.form {
+  padding: 60px 0px;
+  max-width: 2000px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.radioBtn {
+  width: 20px;
+  height: 20px;
+  background: #c56fff;
+}
+
+.radioLabel {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: rgb(69, 68, 68);
+}
+
+.btn {
+  display: flex;
+  padding: 18px 56px;
+  max-width: 530px;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  border-radius: 9px;
+  gap: 10px;
+  font-size: 20px;
+  font-weight: 500;
+  background: blue;
+  color: white;
+  margin-top: 40px;
+}
