@@ -11,14 +11,6 @@ export default function AuthorizationPage({ onLogin }) {
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
 
-  function handleLoginChange(e) {
-    setLogin(e.target.value);
-  }
-
-  function handlePasswordChange(e) {
-    setPassword(e.target.value);
-  }
-
   function logging(e) {
     window.localStorage.setItem("name", login);
     navigate("/");
@@ -73,14 +65,14 @@ export default function AuthorizationPage({ onLogin }) {
               className={styles.input}
               type="text"
               placeholder="Введите логин"
-              onChange={handleLoginChange}
+              onChange={(e) => setLogin(e.target.value)}
               value={login}
             />
             <Input
               className={styles.input}
               type="password"
               placeholder="Введите пароль"
-              onChange={handlePasswordChange}
+              onChange={(e) => setPassword(e.target.value)}
               value={password}
             />
             <FlexBox just="between">

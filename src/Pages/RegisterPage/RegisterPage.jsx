@@ -11,20 +11,11 @@ import { Toaster, toast } from "react-hot-toast";
 export default function RegisterPage() {
   const [user, setUser] = useState("");
   const [password, setPassowrd] = useState("");
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
   const [repeat, setRepeat] = useState("");
   const navigate = useNavigate();
 
-  function handleUser(e) {
-    setUser(e.target.value);
-  }
-
-  function handlePassword(e) {
-    setPassowrd(e.target.value);
-  }
-
-  function handleRepeat(e) {
-    setRepeat(e.target.value);
-  }
   function logging() {
     window.localStorage.setItem("name", user);
     navigate("/");
@@ -32,7 +23,7 @@ export default function RegisterPage() {
 
   async function registerUser(e) {
     e.preventDefault();
-    const registerItem = { user, password, repeat };
+    const registerItem = { user, name, email, password, repeat };
 
     try {
       const response = await fetch("http://localhost:5000/r", {
@@ -44,7 +35,7 @@ export default function RegisterPage() {
       })
         .then((response) => response.json())
         .then((data) => {
-          if (data.message === "Данные получены успешно!") {
+          if (data.message === "Регистрация прошла успешно!") {
             toast.success("Успешная регистрация");
             setTimeout(logging, 2000);
           } else if (data.message === "Пароли не совпадают") {
@@ -82,11 +73,39 @@ export default function RegisterPage() {
               just="between"
               align="align-center"
             >
-              <span>Введите имя:</span>
+              <span>Введите ник:</span>
               <Input
-                onChange={handleUser}
+                onChange={(e) => setUser(e.target.value)}
                 placeholder="user"
                 type="text"
+                className={styles.input}
+              />
+            </FlexBox>
+
+            <FlexBox
+              style={{ width: "470px" }}
+              just="between"
+              align="align-center"
+            >
+              <span>Введите ФИО:</span>
+              <Input
+                onChange={(e) => setName(e.target.value)}
+                placeholder="Иван Иванов"
+                type="email"
+                className={styles.input}
+              />
+            </FlexBox>
+
+            <FlexBox
+              style={{ width: "470px" }}
+              just="between"
+              align="align-center"
+            >
+              <span>Введите email:</span>
+              <Input
+                onChange={(e) => setEmail(e.target.value)}
+                placeholder="example@test.com"
+                type="email"
                 className={styles.input}
               />
             </FlexBox>
@@ -98,7 +117,7 @@ export default function RegisterPage() {
               <span>Введите пароль:</span>
 
               <Input
-                onChange={handlePassword}
+                onChange={(e) => setPassowrd(e.target.value)}
                 placeholder="12345"
                 type="password"
                 className={styles.input}
@@ -111,7 +130,7 @@ export default function RegisterPage() {
             >
               <span>Подтвердите пароль:</span>
               <Input
-                onChange={handleRepeat}
+                onChange={(e) => setRepeat(e.target.value)}
                 style={{ marginLeft: "10px" }}
                 placeholder="12345"
                 type="password"
