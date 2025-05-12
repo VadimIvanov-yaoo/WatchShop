@@ -11,20 +11,6 @@ const connection = mysql.createConnection({
   password: "root",
 });
 
-const connectionProduct = mysql.createConnection({
-  host: "localhost",
-  user: "root",
-  database: "productlist",
-  password: "root",
-});
-
-const connectionRewiew = mysql.createConnection({
-  host: "localhost",
-  user: "root",
-  database: "rewiewsbase",
-  password: "root",
-});
-
 const app = express();
 app.use(express.json());
 const PORT = process.env.PORT || 5000;
@@ -41,7 +27,7 @@ app.use(
   cors({
     origin: "http://localhost:5173",
     methods: ["GET", "POST"],
-  })
+  }),
 );
 
 app.post("/l", (req, res) => {
@@ -83,7 +69,7 @@ app.post("/l", (req, res) => {
       } else {
         return res.status(400).json({ message: "Пользователь не найден" });
       }
-    }
+    },
   );
 });
 
@@ -123,16 +109,16 @@ app.post("/r", (req, res) => {
           }
 
           return res.status(200).json({ message: "Данные получены успешно!" });
-        }
+        },
       );
-    }
+    },
   );
 });
 
 app.post("/item", (req, res) => {
   const { id } = req.body;
   console.log("Получены данные:", id);
-  connectionProduct.query(
+  connection.query(
     {
       sql: "SELECT * FROM `product` WHERE `id` = ?",
       timeout: 5000,
@@ -148,14 +134,14 @@ app.post("/item", (req, res) => {
       }
 
       res.json(results[0]);
-    }
+    },
   );
 });
 
 app.post("/review", (req, res) => {
   const { id } = req.body;
   console.log("Получены данные:", id);
-  connectionRewiew.query(
+  connection.query(
     {
       sql: "SELECT * FROM `review` WHERE `idProduct` = ?",
       timeout: 5000,
@@ -171,7 +157,7 @@ app.post("/review", (req, res) => {
       }
 
       res.json(results);
-    }
+    },
   );
 });
 
@@ -183,7 +169,7 @@ app.post("/reviewWrite", (req, res) => {
     return res.status(200).json({ message: "Ошибка" });
   }
 
-  connectionRewiew.query(
+  connection.query(
     "INSERT INTO review(nameUser, idProduct, raiting, reviewDescription, rewiewDate) VALUES (?, ?, ?, ?, ?)",
     [name, cardId, value, description, reviewDate],
     (error, results) => {
@@ -192,7 +178,7 @@ app.post("/reviewWrite", (req, res) => {
         return res.status(500).json({ error: "Ошибка сервера" });
       }
       return res.status(200).json({ message: "Данные получены успешно!" });
-    }
+    },
   );
 });
 
