@@ -1,19 +1,18 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useLocation, useParams } from "react-router-dom";
-import pack from "../../assets/pack23.png";
-import AccordionComponent from "../AccordionComponent/AccordionComponent";
-import Container from "../Container/Container";
-import star from "../../assets/star.png";
-import Description from "../Description/Description";
-import FlexBox from "../FlexBox/FlexBox";
-import Footer from "../Footer/Footer";
-import Rewiews from "../Rewiews/Rewiews";
-import Title from "../Title/Title";
+import pack from "../../assets/HeaderIcons/pack.png";
+import AccordionComponent from "../../components/AccordionComponent/AccordionComponent.jsx";
+import Container from "../../components/Container/Container.jsx";
+import star from "../../assets/images/star.png";
+import Description from "../../components/Description/Description.jsx";
+import FlexBox from "../../components/FlexBox/FlexBox.jsx";
+import Footer from "../../components/Footer/Footer.jsx";
+import Rewiews from "../../components/Rewiews/Rewiews.jsx";
+import Title from "../../components/Title/Title.jsx";
 import styles from "./ProductPage.module.scss";
-import ShopingCard from "../ShopingCard/ShopingCard";
 
-export default function ProductPage({ addProduct }) {
+export function ProductPage({ addProduct }) {
   const { id } = useParams();
   const cardId = id;
   const location = useLocation();

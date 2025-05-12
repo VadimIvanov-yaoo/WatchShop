@@ -12,7 +12,7 @@ export default function Rewiew({ review }) {
           <div className={styles.rewiewUser}>
             <img
               className={styles.userIcon}
-              src="/src/assets/usericons.png"
+              src="/src/assets/HeaderIcons/usericons.png"
               alt=""
             />
             <p className={styles.userName}>{review.nameUser}</p>

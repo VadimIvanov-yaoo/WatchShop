@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import Button from "../Button/Button";
-import FlexBox from "../FlexBox/FlexBox";
-import Input from "../Input/Input";
-import styles from "./Authorization.module.scss";
+import Button from "../../components/Button/Button.jsx";
+import FlexBox from "../../components/FlexBox/FlexBox.jsx";
+import Input from "../../components/Input/Input.jsx";
+import styles from "./AuthorizationPage.module.scss";
 import { Toaster, toast } from "react-hot-toast";
 
-export default function Authorization({ onLogin }) {
+export default function AuthorizationPage({ onLogin }) {
   const [login, setLogin] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();

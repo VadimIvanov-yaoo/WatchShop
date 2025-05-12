@@ -1,8 +1,8 @@
 import { useState } from "react";
-import Container from "../Container/Container";
-import FlexBox from "../FlexBox/FlexBox";
-import InputOrder from "../InputOrder/InputOrder";
-import Title from "../Title/Title";
+import Container from "../../components/Container/Container.jsx";
+import FlexBox from "../../components/FlexBox/FlexBox.jsx";
+import InputOrder from "../../components/InputOrder/InputOrder.jsx";
+import Title from "../../components/Title/Title.jsx";
 import styles from "./OrderFrom.module.scss";
 
 export default function OrderFrom() {
@@ -29,8 +29,6 @@ export default function OrderFrom() {
 
   function submitClick(e) {
     e.preventDefault();
-
-    console.log(inputData);
   }
 
   return (
@@ -174,7 +172,7 @@ export default function OrderFrom() {
           </FlexBox>
           <hr />
 
-          <button onClick={submitClick} className={styles.btn}>
+          <button type="submit" onClick={submitClick} className={styles.btn}>
             Оформить заказ
           </button>
         </form>

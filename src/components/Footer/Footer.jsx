@@ -2,7 +2,7 @@ import styles from "./Footer.module.scss";
 import React from "react";
 import Container from "../Container/Container";
 import FlexBox from "../FlexBox/FlexBox";
-import logo from "../../assets/logo.svg";
+import logo from "../../assets/HeaderIcons/logo.svg";
 import Description from "../Description/Description";
 import Social from "../Social/Social";
 

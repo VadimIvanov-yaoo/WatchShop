@@ -1,13 +1,13 @@
-import watch1 from "../assets/watch1.png";
-import watch22 from "../assets/watch222.png";
-import watch3 from "../assets/watch3.png";
-import watch33 from "../assets/watch33.png";
-import watch4 from "../assets/watch4.png";
-import watch5 from "../assets/watch5.png";
-import watch6 from "../assets/watch6.png";
-import watch7 from "../assets/watch3.png";
-import watch8 from "../assets/watch1.png";
-import watch9 from "../assets/watch7.png";
+import watch1 from "../assets/WatchCard/watch1.png";
+import watch22 from "../assets/WatchCard/watch222.png";
+import watch3 from "../assets/WatchCard/watch3.png";
+import watch33 from "../assets/WatchCard/watch33.png";
+import watch4 from "../assets/WatchCard/watch4.png";
+import watch5 from "../assets/WatchCard/watch5.png";
+import watch6 from "../assets/WatchCard/watch6.png";
+import watch7 from "../assets/WatchCard/watch3.png";
+import watch8 from "../assets/WatchCard/watch1.png";
+import watch9 from "../assets/WatchCard/watch7.png";
 
 const cardData = [
   {

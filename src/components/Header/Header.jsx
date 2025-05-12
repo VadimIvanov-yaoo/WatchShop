@@ -1,9 +1,9 @@
 import { useState } from "react";
-import logout from "../../assets/log-out.png";
-import logo from "../../assets/logo.svg";
-import loop from "../../assets/loop.svg";
-import pack from "../../assets/shopping-cart2.png";
-import userImg from "../../assets/user.svg";
+import logout from "../../assets/HeaderIcons/log-out.png";
+import logo from "../../assets/HeaderIcons/logo.svg";
+import loop from "../../assets/HeaderIcons/loop.svg";
+import pack from "../../assets/HeaderIcons/shopping-cart2.png";
+import userImg from "../../assets/HeaderIcons/user.svg";
 import Container from "../Container/Container";
 import FlexBox from "../FlexBox/FlexBox";
 import HeaderButton from "../HeaderButton/HeaderButton";

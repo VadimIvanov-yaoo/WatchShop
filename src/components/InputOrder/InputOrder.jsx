@@ -11,6 +11,7 @@ export default function InputOrder({ style, width, children, ...props }) {
       <input
         style={{ ...style, width: width }}
         className={clsx(styles.input, styles.width)}
+        // pattern="[A-Za-z]*"
         {...props}
       />
     </FlexBox>

@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Toaster, toast } from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
-import close from "../../assets/x.png";
+import close from "../../assets/images/close.png";
 import FlexBox from "../FlexBox/FlexBox";
 import Title from "../Title/Title";
 import TrashBtn from "../TrashBtn/TrashBtn";

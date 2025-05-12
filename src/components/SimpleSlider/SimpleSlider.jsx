@@ -3,12 +3,12 @@ import Slider from "react-slick";
 import "./SimpleSlider.css";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import leftArrow from "../../assets/left-arrow.png";
-import rightArrow from "../../assets/right-arrow.png";
+import leftArrow from "../../assets/Swiper/left-arrow.png";
+import rightArrow from "../../assets/Swiper/right-arrow.png";
 
-import sl1 from "../../assets/swiper1.png";
-import sl2 from "../../assets/swiper2.png";
-import sl3 from "../../assets/swiper3.png";
+import sl1 from "../../assets/Swiper/swiper1.png";
+import sl2 from "../../assets/Swiper/swiper2.png";
+import sl3 from "../../assets/Swiper/swiper3.png";
 
 export default function SimpleSlider() {
   var settings = {

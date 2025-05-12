@@ -1,21 +1,21 @@
 import React, { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import Container from "../Container/Container";
-import Description from "../Description/Description";
-import FlexBox from "../FlexBox/FlexBox";
-import Footer from "../Footer/Footer";
-import InfoCard from "../InfoCard/InfoCard";
-import Input from "../Input/Input";
-import Modall from "../Modall/Modall";
-import Select from "../Select/Select";
-import ShopCardList from "../ShopCardList/ShopCardList";
-import SimpleSlider from "../SimpleSlider/SimpleSlider";
-import Title from "../Title/Title";
+import Container from "../../components/Container/Container.jsx";
+import Description from "../../components/Description/Description.jsx";
+import FlexBox from "../../components/FlexBox/FlexBox.jsx";
+import Footer from "../../components/Footer/Footer.jsx";
+import InfoCard from "../../components/InfoCard/InfoCard.jsx";
+import Input from "../../components/Input/Input.jsx";
+import Modall from "../../components/Modall/Modall.jsx";
+import Select from "../../components/Select/Select.jsx";
+import ShopCardList from "../../components/ShopCardList/ShopCardList.jsx";
+import SimpleSlider from "../../components/SimpleSlider/SimpleSlider.jsx";
+import Title from "../../components/Title/Title.jsx";
 import styles from "./MainPage.module.scss";
-import pack from "../../assets/pack23.png";
-import bg from "../../assets/watchBackg.png";
-import znak from "../../assets/znak.svg";
+import pack from "../../assets/HeaderIcons/pack.png";
+import bg from "../../assets/images/watchBackg.png";
+import znak from "../../assets/images/PCT.svg";
 
 export default function MainPage({ cardClick, addProduct, cardId }) {
   const [state, setState] = useState();

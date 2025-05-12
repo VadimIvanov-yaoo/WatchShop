@@ -1,14 +1,14 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import Button from "../Button/Button";
-import Container from "../Container/Container";
-import FlexBox from "../FlexBox/FlexBox";
-import Input from "../Input/Input";
-import Title from "../Title/Title";
-import styles from "./Register.module.scss";
+import Button from "../../components/Button/Button.jsx";
+import Container from "../../components/Container/Container.jsx";
+import FlexBox from "../../components/FlexBox/FlexBox.jsx";
+import Input from "../../components/Input/Input.jsx";
+import Title from "../../components/Title/Title.jsx";
+import styles from "./RegisterPage.module.scss";
 import { Toaster, toast } from "react-hot-toast";
 
-export default function Register() {
+export default function RegisterPage() {
   const [user, setUser] = useState("");
   const [password, setPassowrd] = useState("");
   const [repeat, setRepeat] = useState("");
