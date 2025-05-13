@@ -21,6 +21,7 @@ export function ProductPage({ addProduct }) {
   const [totalGrade, setTotalGrade] = useState(0);
 
   useEffect(() => {
+    window.scrollTo(0, 0);
     if (!product) {
       axios
         .post("http://localhost:5000/item", { id })

@@ -1,23 +1,24 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import Container from "../../components/Container/Container.jsx";
 import FlexBox from "../../components/FlexBox/FlexBox.jsx";
 import axios from "axios";
-import {toast} from "react-hot-toast";
+import { Toaster, toast } from "react-hot-toast";
 import InputOrder from "../../components/InputOrder/InputOrder.jsx";
 import Title from "../../components/Title/Title.jsx";
 import styles from "./OrderFrom.module.scss";
 import clsx from "clsx";
+import { useCart } from "../../hooks/useCart.js";
 import {
   input,
   redInput,
   redTextVisible,
 } from "../../components/InputOrder/InputOrder.module.scss";
 
-
 export default function OrderFrom() {
-
   const nameUserLocal = localStorage.getItem("name");
   const [status, setStatus] = useState();
+  const { cart } = useCart(nameUserLocal);
+  console.log(cart);
   const [color, setColor] = useState({
     name: input,
     email: input,
@@ -38,68 +39,72 @@ export default function OrderFrom() {
     cardDate: "",
     cardCVV: "",
   });
+  console.log(cart);
+
+  useEffect(() => {
+    const allValid = Object.values(inputData).every(
+      (value) => value.trim() !== "",
+    );
+    setStatus(allValid);
+  }, [inputData]);
 
   const isNameInvalid = inputData.name.trim() === "";
-
+  inputData.username = nameUserLocal;
   function handleChange(e) {
     e.preventDefault();
     const { name, value } = e.target;
     setInputData((prev) => ({ ...prev, [name]: value }));
   }
 
-  function changeColor(e) {
+  function changeColor() {
     const newStyles = {};
-    let valid = true;
-    console.log(color);
+    let isValid = true;
+
     Object.entries(inputData).forEach(([key, value]) => {
-      if (!value.trim()) {
+      if (value === "") {
         newStyles[key] = redInput;
-        valid = false;
+        isValid = false;
       } else {
         newStyles[key] = input;
       }
     });
+    setStatus(isValid);
     setColor(newStyles);
-    setStatus(valid)
-
-
     if (status) {
-      console.log("все отлично")
-
+      sendClick();
+    } else {
+      toast.error("Поля не заполнены");
     }
-    else {
-      console.log("Введите данные");
-
-    }
-
-
-
   }
-
-
-console.log(status)
-const user = nameUserLocal;
-const nameUser = inputData.name;
-const userSurname = inputData.surname;
-const email = inputData.email;
-const address = inputData.address;
-const creditCardNumber = inputData.cardNumber;
-const cartItem = null;
+  const user = nameUserLocal;
+  const nameUser = inputData.name;
+  const userSurname = inputData.surname;
+  const email = inputData.email;
+  const address = inputData.address;
+  const creditCardNumber = inputData.cardNumber;
+  const cartItem = null;
 
   async function sendClick() {
-    const reviewItem = {user, nameUser, userSurname, email, address, creditCardNumber, cartItem};
+    const reviewItem = {
+      user,
+      nameUser,
+      userSurname,
+      email,
+      address,
+      creditCardNumber,
+      cartItem,
+    };
     try {
       const { data } = await axios.post(
-          "http://localhost:5000/order",
-          reviewItem
+        "http://localhost:5000/order",
+        reviewItem,
       );
 
       if (data.message === "Данные получены успешно!") {
-        alert("Добавлено");
+        toast.success("Ваш заказ успешно оформлен");
       } else if (data.message === "Ошибка") {
-        alert(" Не добавлено");
+        toast.error("Поля не заполнены");
       }
-
     } catch (error) {
       console.error("Ошибка:", error);
     }
@@ -110,12 +115,11 @@ const cartItem = null;
     changeColor();
   }
 
-
-
   return (
     <div>
       <Container>
         <form className={styles.form} action="">
+          <Toaster position="top-center" reverseOrder={false} />
           <FlexBox direction="flex-column" gap="20px">
             <Title size="medium-big">Оформление заказа</Title>
             <FlexBox gap="20px">

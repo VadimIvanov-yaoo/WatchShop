@@ -177,36 +177,42 @@ app.post("/reviewWrite", (req, res) => {
   }
 
   connection.query(
-      "INSERT INTO review(nameUser, idProduct, raiting, reviewDescription, rewiewDate) VALUES (?, ?, ?, ?, ?)",
-      [name, cardId, value, description, reviewDate],
-      (error, results) => {
-        if (error) {
-          console.error("Ошибка при выполнении запроса:", error);
-          return res.status(500).json({ error: "Ошибка сервера" });
-        }
-        return res.status(200).json({ message: "Данные получены успешно!" });
-      },
+    "INSERT INTO review(nameUser, idProduct, raiting, reviewDescription, rewiewDate) VALUES (?, ?, ?, ?, ?)",
+    [name, cardId, value, description, reviewDate],
+    (error, results) => {
+      if (error) {
+        console.error("Ошибка при выполнении запроса:", error);
+        return res.status(500).json({ error: "Ошибка сервера" });
+      }
+      return res.status(200).json({ message: "Данные получены успешно!" });
+    },
   );
 });
 
-
 app.post("/order", (req, res) => {
-  const { user, nameUser, userSurname, email, address, creditCardNumber, cartItem} = req.body;
+  const {
+    user,
+    nameUser,
+    userSurname,
+    email,
+    address,
+    creditCardNumber,
+    cartItem,
+  } = req.body;
   console.log("Получены данные для заказа:", req.body);
 
   connection.query(
-      "INSERT INTO review(user, userName, email, address, creditCardNumber, cartItem) VALUES (?, ?, ?, ?, ?)",
-      [name, cardId, value, description, reviewDate],
-      (error, results) => {
-        if (error) {
-          console.error("Ошибка при выполнении запроса:", error);
-          return res.status(500).json({ error: "Ошибка сервера" });
-        }
-        return res.status(200).json({ message: "Данные получены успешно!" });
-      },
+    "INSERT INTO orders(userNickname, nameUser,userSurname, email, address, creditCardNumber, cartItem) VALUES (?, ?, ?, ?, ?, ?, ?)",
+    [user, nameUser, userSurname, email, address, creditCardNumber, cartItem],
+    (error, results) => {
+      if (error) {
+        console.error("Ошибка при выполнении запроса:", error);
+        return res.status(500).json({ error: "Ошибка сервера" });
+      }
+      return res.status(200).json({ message: "Данные получены успешно!" });
+    },
   );
 });
-
 
 app.get("/", (req, res) => {
   res.send("Сервер test работает!");
