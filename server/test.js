@@ -208,8 +208,6 @@ app.post("/order", (req, res) => {
 });
 
 
-
-
 app.get("/", (req, res) => {
   res.send("Сервер test работает!");
 });
