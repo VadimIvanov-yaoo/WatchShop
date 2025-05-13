@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import Container from "../../components/Container/Container.jsx";
 import FlexBox from "../../components/FlexBox/FlexBox.jsx";
+import axios from "axios";
+import {toast} from "react-hot-toast";
 import InputOrder from "../../components/InputOrder/InputOrder.jsx";
 import Title from "../../components/Title/Title.jsx";
 import styles from "./OrderFrom.module.scss";
@@ -11,15 +13,15 @@ import {
   redTextVisible,
 } from "../../components/InputOrder/InputOrder.module.scss";
 
+
 export default function OrderFrom() {
-  const name = localStorage.getItem("name");
+
+  const nameUserLocal = localStorage.getItem("name");
+  const [status, setStatus] = useState();
   const [color, setColor] = useState({
     name: input,
     email: input,
     address: input,
-    radioOne: input,
-    radioTwo: input,
-    radioThree: input,
     cardName: input,
     cardNumber: input,
     cardDate: input,
@@ -31,9 +33,6 @@ export default function OrderFrom() {
     email: "",
     username: "",
     address: "",
-    radioOne: "",
-    radioTwo: "",
-    radioThree: "",
     cardName: "",
     cardNumber: "",
     cardDate: "",
@@ -50,21 +49,68 @@ export default function OrderFrom() {
 
   function changeColor(e) {
     const newStyles = {};
+    let valid = true;
     console.log(color);
     Object.entries(inputData).forEach(([key, value]) => {
       if (!value.trim()) {
         newStyles[key] = redInput;
+        valid = false;
       } else {
         newStyles[key] = input;
       }
     });
     setColor(newStyles);
+    setStatus(valid)
+
+
+    if (status) {
+      console.log("все отлично")
+
+    }
+    else {
+      console.log("Введите данные");
+
+    }
+
+
+
+  }
+
+
+console.log(status)
+const user = nameUserLocal;
+const nameUser = inputData.name;
+const userSurname = inputData.surname;
+const email = inputData.email;
+const address = inputData.address;
+const creditCardNumber = inputData.cardNumber;
+const cartItem = null;
+
+  async function sendClick() {
+    const reviewItem = {user, nameUser, userSurname, email, address, creditCardNumber, cartItem};
+    try {
+      const { data } = await axios.post(
+          "http://localhost:5000/order",
+          reviewItem
+      );
+
+      if (data.message === "Данные получены успешно!") {
+        alert("Добавлено");
+      } else if (data.message === "Ошибка") {
+        alert(" Не добавлено");
+      }
+
+    } catch (error) {
+      console.error("Ошибка:", error);
+    }
   }
 
   function handleSubmit(e) {
     e.preventDefault();
     changeColor();
   }
+
+
 
   return (
     <div>
@@ -95,9 +141,9 @@ export default function OrderFrom() {
               </InputOrder>
             </FlexBox>
             <InputOrder
-              onChange={handleChange}
+              // onChange={handleChange}
               name="username"
-              value={name}
+              value={nameUserLocal}
               placeholder="your name"
               width="100%"
               type="email"
@@ -138,11 +184,9 @@ export default function OrderFrom() {
             <Title size="medium-big">Оплата</Title>
             <label className={styles.radioLabel} htmlFor="">
               <input
-                onChange={handleChange}
                 className={styles.radioBtn}
                 name="radio"
                 value="credit"
-                checked={inputData.radio === "credit"}
                 type="radio"
               />{" "}
               Кредитная карта
@@ -153,12 +197,10 @@ export default function OrderFrom() {
               htmlFor=""
             >
               <input
-                onChange={handleChange}
                 className={styles.radioBtn}
                 name="radio"
                 type="radio"
                 value="debet"
-                checked={inputData.radio === "debet"}
               />{" "}
               Дебетовая карта
             </label>

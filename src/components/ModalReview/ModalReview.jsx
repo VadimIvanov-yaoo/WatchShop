@@ -30,12 +30,12 @@ const Modal = ({ isOpen, onClose }) => {
   }
 
   async function sendClick() {
-    const reviewItem = { cardId, value, name, description, reviewDate };
+    const reviewItem = {cardId, value, name, description, reviewDate};
 
     try {
-      const { data } = await axios.post(
-        "http://localhost:5000/reviewWrite",
-        reviewItem
+      const {data} = await axios.post(
+          "http://localhost:5000/reviewWrite",
+          reviewItem
       );
 
       if (data.message === "Данные получены успешно!") {
@@ -51,7 +51,6 @@ const Modal = ({ isOpen, onClose }) => {
     }
     onClose();
   }
-
   return (
     <div className={styles.wrapper} style={modalBackdropStyle}>
       <div className={styles.container} style={modalStyle}>
