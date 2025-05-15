@@ -10,6 +10,7 @@ import HeaderButton from "../HeaderButton/HeaderButton";
 import Nav from "../Nav/Nav";
 import ShoppingCart from "../ShoppingCart/ShoppingCart";
 import styles from "./Header.module.scss";
+import useCartItem from "../../hooks/useCartItem.js";
 
 export default function Header({
   removeProduct,
@@ -21,10 +22,11 @@ export default function Header({
   const [cartOpen, setCartOpen] = useState(false);
   const body = document.getElementById("body");
   const name = window.localStorage.getItem("name");
+  const { product } = useCartItem();
 
   function isUserLoggedIn() {
     return Boolean(
-      name && name !== "undefined" && name !== "null" && name.trim() !== ""
+      name && name !== "undefined" && name !== "null" && name.trim() !== "",
     );
   }
 
@@ -56,7 +58,7 @@ export default function Header({
 
     {
       imageBtn: pack,
-      children: count,
+      children: product.length,
       onClick: (e) => {
         e.preventDefault();
 

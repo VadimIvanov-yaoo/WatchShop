@@ -1,0 +1,104 @@
+.cart {
+  position: fixed;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  top: 150%;
+  left: 50%;
+  transform: translate(-50%);
+  background: white;
+  -webkit-box-shadow: 0px 0px 100px 0px rgba(34, 60, 80, 0.4);
+  -moz-box-shadow: 0px 0px 100px 0px rgba(34, 60, 80, 0.4);
+  box-shadow: 0px 0px 100px 0px rgba(34, 60, 80, 0.4);
+  width: 850px;
+  height: 600px;
+  border-radius: 20px;
+  z-index: 2;
+  overflow: auto;
+
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.cart.open {
+  transform: translateX(0);
+  opacity: 1;
+}
+
+.cartContent {
+  flex: 1;
+  overflow: auto;
+}
+
+.title {
+  text-align: center;
+  margin-top: 10px;
+}
+
+td {
+  margin-bottom: 20px;
+  border-top: 1px solid rgba(190, 188, 188, 0.453);
+}
+
+.pad {
+  padding-bottom: 15px;
+}
+
+.table {
+  margin-top: 20px;
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.product {
+  padding: 10px 15px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.price {
+  text-align: center;
+}
+
+.img {
+  height: 120px;
+  mix-blend-mode: multiply;
+}
+
+.totalWrapper {
+  position: sticky;
+  bottom: 0;
+  z-index: 10;
+  padding-top: 20px;
+  border-top: 1px solid #eee;
+  background-color: white;
+}
+
+.total {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.totalSum {
+  font-size: 18px;
+}
+
+.closeBtn:hover {
+  opacity: 50%;
+}
+
+.orangeButton {
+  display: flex;
+  padding: 14px 52px;
+  justify-content: center;
+  align-items: center;
+  border-radius: 9px;
+  gap: 10px;
+  font-size: 20px;
+  font-weight: 500;
+  background: orange;
+  color: rgb(255, 255, 255);
+}

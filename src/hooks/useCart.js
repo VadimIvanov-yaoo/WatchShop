@@ -1,37 +1,25 @@
-import { useEffect, useState } from "react";
-import { Toaster, toast } from "react-hot-toast";
+import { useState, useEffect } from "react";
 import card from "../Data/CardData";
+import axios from "axios";
 
-export function useCart(name) {
-  const [cart, setCart] = useState(() => {
-    const savedCart = localStorage.getItem(`cart_${name}`);
-    return savedCart ? JSON.parse(savedCart) : [];
-  });
+const authName = localStorage.getItem("name");
 
-  const [count, setCount] = useState(() => {
-    const savedCount = localStorage.getItem(`quantity_${name}`);
-    return savedCount ? parseInt(savedCount) : 0;
-  });
-
-  useEffect(() => {
-    if (name) {
-      localStorage.setItem(`cart_${name}`, JSON.stringify(cart));
-      localStorage.setItem(`quantity_${name}`, cart.length);
-    }
-  }, [cart, name]);
+export function useCart() {
+  const [count, setCount] = useState(0);
+  const [cart, setCart] = useState([]);
 
   function addProduct(id) {
     setCart((prevCart) => {
-      if (prevCart.some((item) => item.id === id)) {
+      const existingProduct = prevCart.find((item) => item.id === id);
+      if (existingProduct) {
         return prevCart.map((item) =>
           item.id === id ? { ...item, quantity: item.quantity + 1 } : item,
         );
       }
       const product = card.find((item) => item.id === parseInt(id));
+      if (!product) return prevCart;
       return [...prevCart, { ...product, quantity: 1 }];
     });
-
-    setCount((prev) => prev + 1);
   }
 
   function removeProduct(id) {
@@ -47,9 +35,44 @@ export function useCart(name) {
         return prevCart.filter((item) => item.id !== id);
       }
     });
-
-    setCount((prev) => (prev > 0 ? prev - 1 : 0));
   }
 
-  return { cart, count, addProduct, removeProduct };
+  useEffect(() => {
+    if (cart.length > 0) {
+      const basketData = {
+        authName,
+        items: cart.map((item) => ({
+          productId: item.id,
+          productImage: item.cardImg,
+          productName: item.cardTitle,
+          productPrice: parseFloat(item.cardPrice.replace(/\s+/g, "")),
+          productQuantity: item.quantity,
+        })),
+      };
+
+      const submitCartData = async () => {
+        try {
+          const { data } = await axios.post(
+            "http://localhost:5000/basket",
+            basketData,
+          );
+          if (data.message === "Данные получены успешно!") {
+          } else if (data.message === "Ошибка") {
+            alert("Не успешно");
+          }
+        } catch (error) {
+          console.error("Ошибка:", error);
+        }
+      };
+
+      submitCartData();
+    }
+  }, [cart]);
+
+  return {
+    cart,
+    count,
+    addProduct,
+    removeProduct,
+  };
 }

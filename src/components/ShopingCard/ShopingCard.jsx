@@ -8,6 +8,7 @@ import styles from "./ShopingCard.module.scss";
 import Tippy from "@tippyjs/react";
 import "tippy.js/dist/tippy.css";
 import { useState } from "react";
+import { useCart } from "../../hooks/useCart.js";
 
 export default function ShopingCard({
   cardId,
@@ -16,11 +17,9 @@ export default function ShopingCard({
   cardPrice,
   addProduct,
   cardClick,
-  handleCardClick,
 }) {
   const [visible, setVisible] = useState(false);
-  // const [averageTotal, setAverageTotal] = useState(0);
-
+  const { submitClick } = useCart(name);
   function handleClick() {
     setVisible(true);
     setTimeout(() => setVisible(false), 900);
@@ -49,7 +48,6 @@ export default function ShopingCard({
               name="transparentBtn"
               onClick={(e) => {
                 e.stopPropagation();
-                // e.stopImmediatePropagation();
                 addProduct(cardId);
                 handleClick();
               }}

@@ -214,6 +214,98 @@ app.post("/order", (req, res) => {
   );
 });
 
+app.post("/basket", async (req, res) => {
+  const { authName, items } = req.body;
+  const userName = authName;
+  console.log("Получены данные для корзины:", req.body);
+
+  try {
+    const queries = items.map((item) => {
+      const {
+        productId,
+        productImage,
+        productName,
+        productPrice,
+        productQuantity,
+      } = item;
+
+      let totalPrice = parseInt(productPrice) * parseInt(productQuantity);
+
+      return new Promise((resolve, reject) => {
+        connection.query(
+          `INSERT INTO basket (
+          userName, productId, productImage, productName,
+          productPrice, productQuantity, productTotalPrice
+        ) VALUES (?, ?, ?, ?, ?, ?, ?)`,
+          [
+            userName,
+            productId,
+            productImage,
+            productName,
+            totalPrice,
+            productQuantity,
+            totalPrice,
+          ],
+          (error, results) => {
+            if (error) {
+              console.error("Ошибка при выполнении запроса:", error);
+              reject("Ошибка сервера");
+            } else {
+              resolve();
+            }
+          },
+        );
+      });
+    });
+
+    await Promise.all(queries);
+    res.json({ message: "Данные получены успешно!" });
+  } catch (error) {
+    console.error("Ошибка при обработке запроса:", error);
+    res.status(500).json({ error: "Ошибка сервера" });
+  }
+});
+
+app.get("/basketGet", (req, res) => {
+  const { userName } = req.query;
+  console.log("Получены данные:", userName);
+  connection.query(
+    {
+      sql: "SELECT *, (SELECT SUM(productTotalPrice) FROM basket WHERE userName = ?) AS totalSum FROM basket WHERE userName = ?",
+      timeout: 5000,
+    },
+    [userName, userName],
+    (error, results) => {
+      if (error) {
+        console.error("Ошибка при выполнении запроса:", error);
+        return res.status(500).json({ error: "Ошибка сервера" });
+      }
+      if (results.length === 0) {
+        return res.status(404).json({ message: "Товар не найден" });
+      }
+
+      res.json(results);
+    },
+  );
+});
+
+app.post("/deleteBasket", (req, res) => {
+  const { userName, id } = req.body;
+  console.log("Получены данные для удаления:", req.body);
+
+  connection.query(
+    "DELETE FROM basket WHERE userName = ? AND id = ?",
+    [userName, id],
+    (error, results) => {
+      if (error) {
+        console.error("Ошибка при выполнении запроса:", error);
+        return res.status(500).json({ error: "Ошибка сервера" });
+      }
+      return res.status(200).json({ message: "Данные получены успешно!" });
+    },
+  );
+});
+
 app.get("/", (req, res) => {
   res.send("Сервер test работает!");
 });

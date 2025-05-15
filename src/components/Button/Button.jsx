@@ -8,7 +8,7 @@ export default function Button({
   addProduct,
   color = "transparentBtn",
   children,
-  name = "btn",
+  // name = "btn",
   size,
   ...props
 }) {
