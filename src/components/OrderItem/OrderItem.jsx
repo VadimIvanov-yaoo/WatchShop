@@ -1,37 +1,20 @@
 import React from "react";
 import styles from "./OrderItem.module.scss";
 
-export default function OrderItem() {
+export default function OrderItem({productName,productPrice,productImage}) {
   return (
     <div className={styles.orderContainer}>
-      <table>
-        <thead>
-          <tr>
-            <th>Наименование</th>
-            <th>Цена</th>
-            <th>Статус</th>
-            <th></th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>Наушники Sony WH-1000XM5</td>
-            <td>34 990 ₽</td>
-            <td>В обработке</td>
-            <td>
-              <button className={styles.cancelBtn}>Отменить заказ</button>
-            </td>
-          </tr>
-          <tr>
-            <td>Клавиатура Keychron K2</td>
-            <td>8 490 ₽</td>
-            <td>Доставлен</td>
-            <td>
+        <tbody className={styles.orderTableBody}>
+          <tr className={styles.orderTableHeadRow}>
+            <td className={styles.orderTd}><img className={styles.orderImage} src={productImage} alt=""/></td>
+            <td className={styles.orderTd}>{productName}</td>
+            <td className={styles.orderTd}>{productPrice}</td>
+            <td className={styles.orderTd}>В обработке</td>
+            <td className={styles.orderTd}>
               <button className={styles.cancelBtn}>Отменить заказ</button>
             </td>
           </tr>
         </tbody>
-      </table>
     </div>
   );
 }

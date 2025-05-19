@@ -7,6 +7,7 @@ import InputOrder from "../../components/InputOrder/InputOrder.jsx";
 import Title from "../../components/Title/Title.jsx";
 import styles from "./OrderPlacement.module.scss";
 import clsx from "clsx";
+import useCartItem from "../../hooks/useCartItem.js";
 import { useCart } from "../../hooks/useCart.js";
 import {
   input,
@@ -15,6 +16,7 @@ import {
 } from "../../components/InputOrder/InputOrder.module.scss";
 
 export default function OrderPlacement() {
+  const {product} = useCartItem();
   const nameUserLocal = localStorage.getItem("name");
   const [status, setStatus] = useState();
   const { cart } = useCart(nameUserLocal);
@@ -80,7 +82,8 @@ export default function OrderPlacement() {
   const email = inputData.email;
   const address = inputData.address;
   const creditCardNumber = inputData.cardNumber;
-  const cartItem = null;
+  const cartItem = JSON.stringify(product);
+  // const cartItem = cart;  ;
 
   async function sendClick() {
     const reviewItem = {
@@ -94,7 +97,7 @@ export default function OrderPlacement() {
     };
     try {
       const { data } = await axios.post(
-        "http://localhost:5000/order",
+        "http://localhost:5000/OrderPlacement",
         reviewItem,
       );
 
@@ -143,7 +146,6 @@ export default function OrderPlacement() {
               </InputOrder>
             </FlexBox>
             <InputOrder
-              // onChange={handleChange}
               name="username"
               value={nameUserLocal}
               placeholder="your name"

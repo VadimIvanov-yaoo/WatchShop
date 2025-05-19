@@ -1,4 +1,3 @@
-
 .orderContainer {
   width: 100%;
   padding: 40px;
@@ -8,11 +7,11 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  //margin-top: 60px;
+  /* margin-top: 60px; */
   gap: 30px;
 }
 
-table {
+.orderTable {
   width: 100%;
   border-collapse: collapse;
   font-family: 'Segoe UI', sans-serif;
@@ -22,38 +21,44 @@ table {
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
 }
 
-thead {
+.orderTableHead {
   background: linear-gradient(90deg, #c3dafe, #a5f3fc);
 }
 
-th, td {
+.orderTh, .orderTd {
   padding: 1.2rem;
   text-align: left;
   font-size: 1rem;
 }
 
-th {
+.orderTh {
   font-weight: 700;
   color: #1e293b;
   border-bottom: 2px solid #e2e8f0;
 }
 
-td {
+.orderTd {
   border-bottom: 1px solid #f1f5f9;
 }
 
-tr:last-child td {
+.orderTableHeadRow:last-child td {
   border-bottom: none;
 }
 
-tbody tr:hover {
+.orderTableBody, .orderTableHeadRow:hover {
   background-color: #f0f9ff;
   transition: 0.2s ease-in-out;
 }
 
-.cancelBtn{
+.cancelBtn {
   padding: 10px 25px;
   color: #fff;
   border-radius: 12px;
   background: red;
 }
+
+.orderImage{
+  height: 100px;
+  mix-blend-mode: multiply;
+}
+

@@ -8,7 +8,7 @@ export default function useCartItem() {
     const authUser = localStorage.getItem("name"); // получаем имя пользователя
     if (authUser && authUser !== "") {
       axios
-        .get("http://localhost:5000/basketGet", {
+        .post("http://localhost:5000/basketGet", {
           params: { userName: authUser },
         })
         .then((res) => {

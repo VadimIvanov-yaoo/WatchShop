@@ -191,7 +191,7 @@ app.post("/reviewWrite", (req, res) => {
   );
 });
 
-app.post("/order", (req, res) => {
+app.post("/OrderPlacement", (req, res) => {
   const {
     user,
     nameUser,
@@ -204,7 +204,7 @@ app.post("/order", (req, res) => {
   console.log("Получены данные для заказа:", req.body);
 
   connection.query(
-    "INSERT INTO orders(userNickname, nameUser,userSurname, email, address, creditCardNumber, cartItem) VALUES (?, ?, ?, ?, ?, ?, ?)",
+    "INSERT INTO orders(user, nameUser,userSurname, email, address, creditCardNumber, cartItem) VALUES (?, ?, ?, ?, ?, ?, ?)",
     [user, nameUser, userSurname, email, address, creditCardNumber, cartItem],
     (error, results) => {
       if (error) {
@@ -307,6 +307,30 @@ app.post("/deleteBasket", (req, res) => {
     },
   );
 });
+
+app.post("/order", (req, res) => {
+  const { userName } = req.body;
+  console.log("Получены данные:", userName);
+  connection.query(
+      {
+        sql: "SELECT * FROM `orders` WHERE `user` = ?",
+        timeout: 5000,
+      },
+      [userName],
+      (error, results) => {
+        if (error) {
+          console.error("Ошибка при выполнении запроса:", error);
+          return res.status(500).json({ error: "Ошибка сервера" });
+        }
+        if (results.length === 0) {
+          return res.status(404).json({ message: "Отзыв не найден" });
+        }
+
+        res.json(results);
+      },
+  );
+});
+
 
 app.get("/", (req, res) => {
   res.send("Сервер test работает!");

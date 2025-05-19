@@ -13,7 +13,7 @@ export default function ShoppingCart({ closeCart }) {
   function addOrder() {
     if (product.length !== 0) {
       closeCart();
-      navigate("/order");
+      navigate("/OrderPlacement");
     } else {
       toast.error("Корзина пуста");
     }

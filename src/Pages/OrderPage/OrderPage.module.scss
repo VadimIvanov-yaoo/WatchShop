@@ -1,6 +1,58 @@
+.order {
+  background: linear-gradient(135deg, #e0f7fa, #fce4ec);
+}
+.back {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 40px;
+  opacity: 70%;
+}
+
+.orderTable {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: 'Segoe UI', sans-serif;
+  background-color: #fff;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
+}
+
+.orderTableHead {
+  background: linear-gradient(90deg, #c3dafe, #a5f3fc);
+}
+
+.arrow {
+  font-size: 20px;
+}
+
 .form {
+  padding: 10px 0px;
   max-width: 2000px;
   display: flex;
   flex-direction: column;
   min-height: 100vh;
 }
+
+.orderTh, .orderTd {
+  padding: 1.2rem;
+  text-align: left;
+  font-size: 1rem;
+}
+
+
+
+
+
+
+
+
+
+.orderPage {
+  background: linear-gradient(135deg, #f0f4ff, #e6f0ff);
+}
+
+
+
+
