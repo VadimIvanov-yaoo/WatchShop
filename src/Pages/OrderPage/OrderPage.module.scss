@@ -1,0 +1,75 @@
+.form {
+  padding: 60px 0px;
+  max-width: 2000px;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.orderPage{
+  background: linear-gradient(135deg, #f0f4ff, #e6f0ff);
+}
+
+
+.orderContainer {
+  width: 100%;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 60px;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: 'Segoe UI', sans-serif;
+  background-color: #fff;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+thead {
+  background-color: #f2f4f7;
+}
+
+th,
+td {
+  padding: 1rem;
+  text-align: left;
+  font-size: 1rem;
+}
+
+th {
+  font-weight: 600;
+  color: #333;
+  border-bottom: 1px solid #ddd;
+}
+
+td {
+  border-bottom: 1px solid #eee;
+}
+
+tr:last-child td {
+  border-bottom: none;
+}
+
+tbody tr:hover {
+  background-color: #f9f9f9;
+}
+
+button {
+  background-color: #ef4444;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  font-size: 0.9rem;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+
+  &:hover {
+    background-color: #dc2626;
+  }
+}

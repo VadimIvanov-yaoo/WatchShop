@@ -5,7 +5,7 @@ import axios from "axios";
 import { Toaster, toast } from "react-hot-toast";
 import InputOrder from "../../components/InputOrder/InputOrder.jsx";
 import Title from "../../components/Title/Title.jsx";
-import styles from "./OrderFrom.module.scss";
+import styles from "./OrderPlacement.module.scss";
 import clsx from "clsx";
 import { useCart } from "../../hooks/useCart.js";
 import {
@@ -14,11 +14,10 @@ import {
   redTextVisible,
 } from "../../components/InputOrder/InputOrder.module.scss";
 
-export default function OrderFrom() {
+export default function OrderPlacement() {
   const nameUserLocal = localStorage.getItem("name");
   const [status, setStatus] = useState();
   const { cart } = useCart(nameUserLocal);
-  console.log(cart);
   const [color, setColor] = useState({
     name: input,
     email: input,
@@ -39,7 +38,6 @@ export default function OrderFrom() {
     cardDate: "",
     cardCVV: "",
   });
-  console.log(cart);
 
   useEffect(() => {
     const allValid = Object.values(inputData).every(

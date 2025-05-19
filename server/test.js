@@ -37,7 +37,7 @@ app.post("/l", (req, res) => {
 
   connection.query(
     {
-      sql: "SELECT * FROM `authorData` WHERE `userLogin` = ?",
+      sql: "SELECT * FROM `authordata` WHERE `userLogin` = ?",
       timeout: 5000,
     },
     [login],
@@ -86,7 +86,7 @@ app.post("/r", (req, res) => {
   }
 
   connection.query(
-    "SELECT * FROM `authorData` WHERE `userLogin` = ?",
+    "SELECT * FROM `authordata` WHERE `userLogin` = ?",
     [user],
     (error, results) => {
       if (error) {
@@ -105,7 +105,7 @@ app.post("/r", (req, res) => {
         }
 
         connection.query(
-          "INSERT INTO authorData(userLogin, userPassword, userName, userEmail) VALUES (?, ?, ?, ?)",
+          "INSERT INTO authord ata(userLogin, userPassword, userName, userEmail) VALUES (?, ?, ?, ?)",
           [user, hash, name, email],
           (error, results) => {
             if (error) {
@@ -144,6 +144,7 @@ app.post("/item", (req, res) => {
     },
   );
 });
+
 
 app.post("/review", (req, res) => {
   const { id } = req.body;
