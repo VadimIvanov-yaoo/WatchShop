@@ -7,9 +7,8 @@ import AuthorizationPage from "./Pages/AuthorizationPage/AuthorizationPage.jsx";
 import RegisterPage from "./Pages/RegisterPage/RegisterPage.jsx";
 import { ProductPage } from "./Pages/ProductPage/ProductPage";
 import Rewiews from "./components/Rewiews/Rewiews";
-import OrderPlacement from "./Pages/OrderPlacement/OrderPlacement.jsx";
+import OrderFrom from "./Pages/OrderFrom/OrderFrom";
 import { useCart } from "./hooks/useCart.js";
-import OrderPage from "./Pages/OrderPage/OrderPage.jsx";
 
 function App() {
   const location = useLocation();
@@ -41,8 +40,7 @@ function App() {
         <Route path="/register" element={<RegisterPage />} />
         <Route path="/cardPage" element={<ProductPage />} />
         <Route path="/review" element={<Rewiews />} />
-        <Route path="/OrderPlacement" element={<OrderPlacement />} />
-        <Route path="/order" element={<OrderPage />} />
+        <Route path="/order" element={<OrderFrom />} />
         <Route
           path={`/cardPage/:id`}
           element={<ProductPage addProduct={addProduct} />}
