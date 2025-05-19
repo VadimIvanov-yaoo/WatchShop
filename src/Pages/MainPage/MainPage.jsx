@@ -16,6 +16,7 @@ import styles from "./MainPage.module.scss";
 import pack from "../../assets/HeaderIcons/pack.png";
 import bg from "../../assets/images/watchBackg.png";
 import znak from "../../assets/images/PCT.svg";
+import { useCart } from "../../hooks/useCart.js";
 
 export default function MainPage({ cardClick, addProduct, cardId }) {
   const [state, setState] = useState();
