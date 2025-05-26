@@ -13,7 +13,6 @@ const connection = mysql.createConnection({
   password: "root",
 });
 
-
 const app = express();
 app.use(express.json());
 const PORT = process.env.PORT || 5000;
@@ -106,7 +105,7 @@ app.post("/r", (req, res) => {
         }
 
         connection.query(
-          "INSERT INTO authord ata(userLogin, userPassword, userName, userEmail) VALUES (?, ?, ?, ?)",
+          "INSERT INTO authordata(userLogin, userPassword, userName, userEmail) VALUES (?, ?, ?, ?)",
           [user, hash, name, email],
           (error, results) => {
             if (error) {
@@ -145,7 +144,6 @@ app.post("/item", (req, res) => {
     },
   );
 });
-
 
 app.post("/review", (req, res) => {
   const { id } = req.body;
@@ -201,17 +199,54 @@ app.post("/OrderPlacement", (req, res) => {
     creditCardNumber,
     cartItem,
   } = req.body;
+
   console.log("Получены данные для заказа:", req.body);
 
   connection.query(
-    "INSERT INTO orders(user, nameUser,userSurname, email, address, creditCardNumber, cartItem) VALUES (?, ?, ?, ?, ?, ?, ?)",
-    [user, nameUser, userSurname, email, address, creditCardNumber, cartItem],
+    "INSERT INTO orders(user, nameUser, userSurname, email, address, creditCardNumber) VALUES (?, ?, ?, ?, ?, ?)",
+    [user, nameUser, userSurname, email, address, creditCardNumber],
     (error, results) => {
       if (error) {
-        console.error("Ошибка при выполнении запроса:", error);
+        console.error("Ошибка при вставке заказа:", error);
         return res.status(500).json({ error: "Ошибка сервера" });
       }
-      return res.status(200).json({ message: "Данные получены успешно!" });
+
+      const orderId = results.insertId;
+      const items =
+        typeof cartItem === "string" ? JSON.parse(cartItem) : cartItem;
+
+      const insertItems = items.map((item) => {
+        return new Promise((resolve, reject) => {
+          connection.query(
+            "INSERT INTO order_items(order_id, userName, productId, productName, productPrice, productQuantity, productTotalPrice, productImage) VALUES (?, ?, ?, ?, ?, ?,?,?)",
+            [
+              orderId,
+              user,
+              item.productId,
+              item.productName,
+              item.productPrice,
+              item.productQuantity,
+              item.productTotalPrice,
+              item.productImage,
+            ],
+            (err) => {
+              if (err) return reject(err);
+              resolve();
+            },
+          );
+        });
+      });
+
+      Promise.all(insertItems)
+        .then(() => {
+          return res.status(200).json({ message: "Заказ успешно оформлен!" });
+        })
+        .catch((err) => {
+          console.error("Ошибка при вставке товаров:", err);
+          return res
+            .status(500)
+            .json({ error: "Ошибка при добавлении товаров" });
+        });
     },
   );
 });
@@ -310,27 +345,64 @@ app.post("/deleteBasket", (req, res) => {
 
 app.post("/order", (req, res) => {
   const { userName } = req.body;
+
+  if (!userName) {
+    return res.status(400).json({ error: "Не указано имя пользователя" });
+  }
+
   console.log("Получены данные:", userName);
-  connection.query(
-      {
-        sql: "SELECT * FROM `orders` WHERE `user` = ?",
-        timeout: 5000,
-      },
+
+  const getOrdersQuery = "SELECT * FROM `orders` WHERE `user` = ?";
+  const getOrderItemsQuery = "SELECT * FROM `order_items` WHERE `userName` = ?";
+
+  connection.query(getOrdersQuery, [userName], (ordersErr, ordersResults) => {
+    if (ordersErr) {
+      console.error("Ошибка при получении заказов:", ordersErr);
+      return res
+        .status(500)
+        .json({ error: "Ошибка сервера при получении заказов" });
+    }
+
+    if (ordersResults.length === 0) {
+      return res.status(404).json({ message: "Заказов не найдено" });
+    }
+
+    connection.query(
+      getOrderItemsQuery,
       [userName],
-      (error, results) => {
-        if (error) {
-          console.error("Ошибка при выполнении запроса:", error);
-          return res.status(500).json({ error: "Ошибка сервера" });
-        }
-        if (results.length === 0) {
-          return res.status(404).json({ message: "Отзыв не найден" });
+      (itemsErr, itemsResults) => {
+        if (itemsErr) {
+          console.error("Ошибка при получении товаров:", itemsErr);
+          return res
+            .status(500)
+            .json({ error: "Ошибка сервера при получении товаров" });
         }
 
-        res.json(results);
+        return res.status(200).json({
+          orders: ordersResults,
+          items: itemsResults,
+        });
       },
-  );
+    );
+  });
 });
 
+app.post("/orderDelete", (req, res) => {
+  const { userName, id } = req.body;
+  console.log("Получены данные для удаления:", req.body);
+
+  connection.query(
+    "DELETE FROM orders WHERE user = ? AND id = ?",
+    [userName, id],
+    (error, results) => {
+      if (error) {
+        console.error("Ошибка при выполнении запроса:", error);
+        return res.status(500).json({ error: "Ошибка сервера" });
+      }
+      return res.status(200).json({ message: "Данные получены успешно!" });
+    },
+  );
+});
 
 app.get("/", (req, res) => {
   res.send("Сервер test работает!");

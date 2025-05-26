@@ -5,10 +5,10 @@ export default function useCartItem() {
   const [product, setProduct] = useState([]);
 
   useEffect(() => {
-    const authUser = localStorage.getItem("name"); // получаем имя пользователя
+    const authUser = localStorage.getItem("name");
     if (authUser && authUser !== "") {
       axios
-        .post("http://localhost:5000/basketGet", {
+        .get("http://localhost:5000/basketGet", {
           params: { userName: authUser },
         })
         .then((res) => {

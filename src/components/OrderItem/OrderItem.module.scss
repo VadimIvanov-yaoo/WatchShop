@@ -28,7 +28,7 @@
 .orderTh, .orderTd {
   padding: 1.2rem;
   text-align: left;
-  font-size: 1rem;
+  font-size: 1.2rem;
 }
 
 .orderTh {
@@ -58,7 +58,8 @@
 }
 
 .orderImage{
-  height: 100px;
+  padding-left: 100px;
+  max-height: 200px;
   mix-blend-mode: multiply;
 }
 

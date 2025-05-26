@@ -7,6 +7,7 @@ import InputOrder from "../../components/InputOrder/InputOrder.jsx";
 import Title from "../../components/Title/Title.jsx";
 import styles from "./OrderPlacement.module.scss";
 import clsx from "clsx";
+import { useNavigate } from "react-router-dom";
 import useCartItem from "../../hooks/useCartItem.js";
 import { useCart } from "../../hooks/useCart.js";
 import {
@@ -16,7 +17,8 @@ import {
 } from "../../components/InputOrder/InputOrder.module.scss";
 
 export default function OrderPlacement() {
-  const {product} = useCartItem();
+  const navigate = useNavigate();
+  const { product } = useCartItem();
   const nameUserLocal = localStorage.getItem("name");
   const [status, setStatus] = useState();
   const { cart } = useCart(nameUserLocal);
@@ -114,6 +116,7 @@ export default function OrderPlacement() {
   function handleSubmit(e) {
     e.preventDefault();
     changeColor();
+    navigate("/order");
   }
 
   return (
