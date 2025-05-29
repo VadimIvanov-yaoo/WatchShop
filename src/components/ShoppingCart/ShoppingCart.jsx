@@ -1,40 +1,28 @@
-import { useEffect, useState } from "react";
 import { Toaster, toast } from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import close from "../../assets/images/close.png";
 import FlexBox from "../FlexBox/FlexBox";
-import Title from "../Title/Title";
-import TrashBtn from "../TrashBtn/TrashBtn";
 import styles from "./ShoppingCart.module.scss";
+import useCartItem from "../../hooks/useCartItem.js";
+import CartItem from "../CartItem/CartItem.jsx";
 
-export default function ShoppingCart({ removeProduct, cart = [], closeCart }) {
-  const [total, setTotal] = useState(0);
+export default function ShoppingCart({ closeCart }) {
   const navigate = useNavigate();
-
-  useEffect(() => {
-    totalSum();
-  }, [cart]);
-
-  function totalSum() {
-    const sum = cart.reduce((acc, item) => {
-      const price = parseInt(item.cardPrice.replace(/\s/g, ""), 10);
-      return acc + price * item.quantity;
-    }, 0);
-    setTotal(sum);
-  }
-
-  function handleClick(id) {
-    removeProduct(id);
-  }
+  const { product } = useCartItem();
+  console.log(product);
 
   function addOrder() {
-    if (cart.length !== 0) {
+    if (product.length !== 0) {
       closeCart();
-      navigate("/order");
+      navigate("/OrderPlacement");
     } else {
       toast.error("Корзина пуста");
     }
   }
+  const totalSum = product.reduce(
+    (acc, item) => acc + item.productTotalPrice,
+    0,
+  );
 
   return (
     <div className={styles.cart}>
@@ -58,27 +46,21 @@ export default function ShoppingCart({ removeProduct, cart = [], closeCart }) {
               <th className={styles.pad}>Цена</th>
               <th className={styles.pad}>Количество</th>
               <th className={styles.pad}>Итого</th>
+
             </tr>
           </thead>
-          <tbody className={styles.tbody}>
-            {cart.map((item) => (
-              <tr key={item.id}>
-                <td>
-                  <span className={styles.product}>
-                    <TrashBtn onClick={() => handleClick(item.id)} />
-                    <img className={styles.img} src={item.cardImg} alt="" />
-                    <Title>{item.cardTitle}</Title>
-                  </span>
-                </td>
-                <td className={styles.price}>{item.cardPrice} ₽</td>
-                <td className={styles.price}>{item.quantity}</td>
-                <td className={styles.price}>
-                  {parseInt(item.cardPrice.replace(/\s/g, "")) * item.quantity}{" "}
-                  ₽
-                </td>
-              </tr>
-            ))}
-          </tbody>
+          {product.map((item, index) => (
+            <CartItem
+              key={index}
+              id={item.id}
+              productId={item.productId}
+              productImage={item.productImage}
+              productTitle={item.productName}
+              productQuantity={item.productQuantity}
+              productPrice={item.productPrice}
+              // productQuantity={item.productQuantity}
+            />
+          ))}
         </table>
       </div>
 
@@ -86,7 +68,7 @@ export default function ShoppingCart({ removeProduct, cart = [], closeCart }) {
         <FlexBox just="between" gap="20px" align="align-center">
           <div className={styles.total}>
             <strong style={{ fontSize: "20px" }}>Итого:</strong>
-            <span className={styles.totalSum}> {total} ₽ </span>
+            <span className={styles.totalSum}>{totalSum} ₽</span>
           </div>
           <button onClick={addOrder} className={styles.orangeButton}>
             К оформлению

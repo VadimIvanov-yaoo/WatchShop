@@ -16,6 +16,7 @@ import styles from "./MainPage.module.scss";
 import pack from "../../assets/HeaderIcons/pack.png";
 import bg from "../../assets/images/watchBackg.png";
 import znak from "../../assets/images/PCT.svg";
+import { useCart } from "../../hooks/useCart.js";
 
 export default function MainPage({ cardClick, addProduct, cardId }) {
   const [state, setState] = useState();
@@ -66,7 +67,7 @@ export default function MainPage({ cardClick, addProduct, cardId }) {
 
   function handleCardClick(cardId) {
     axios
-      .post("http://localhost:5000/item", { id: cardId })
+      .post("http://localhost:5000/product/item", { id: cardId })
       .then((res) => {
         navigate(`/cardPage/${cardId}`, { state: res.data });
         console.log("Данные товара:", res.data);

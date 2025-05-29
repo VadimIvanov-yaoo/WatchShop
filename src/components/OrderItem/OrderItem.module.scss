@@ -1,0 +1,66 @@
+.orderContainer {
+  width: 100%;
+  padding: 40px;
+  background: #ffffff;
+  border-radius: 24px;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  /* margin-top: 60px; */
+  gap: 30px;
+}
+
+.orderTable {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: 'Segoe UI', sans-serif;
+  background-color: #fff;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
+}
+
+.orderTableHead {
+  background: linear-gradient(90deg, #c3dafe, #a5f3fc);
+}
+
+.orderTh, .orderTd {
+  padding: 1.2rem;
+  text-align: left;
+  font-size: 1.2rem;
+}
+
+.orderTh, .orderTd {
+  padding: 1.2rem;
+  text-align: center;
+  font-size: 1.2rem;
+}
+
+.orderTh {
+  font-weight: 700;
+  color: #1e293b;
+  border-bottom: 2px solid #e2e8f0;
+}
+
+.orderTd {
+  border-bottom: 1px solid #f1f5f9;
+}
+
+.orderTableHeadRow:last-child td {
+  border-bottom: none;
+}
+
+.orderTableBody, .orderTableHeadRow:hover {
+  background-color: #f0f9ff;
+  transition: 0.2s ease-in-out;
+}
+
+
+.orderImage{
+  padding-left: 100px;
+  max-height: 200px;
+  max-width: 350px;
+  mix-blend-mode: multiply;
+}
+

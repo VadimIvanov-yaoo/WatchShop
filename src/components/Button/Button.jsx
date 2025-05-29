@@ -8,7 +8,6 @@ export default function Button({
   addProduct,
   color = "transparentBtn",
   children,
-  name = "btn",
   size,
   ...props
 }) {
@@ -20,7 +19,7 @@ export default function Button({
 
   return (
     <button
-      onClick={handleClick}
+      // onClick={handleClick}
       {...props}
       className={clsx(styles[name], styles[color], styles[size])}
     >

@@ -2,6 +2,7 @@ import { useState } from "react";
 import logout from "../../assets/HeaderIcons/log-out.png";
 import logo from "../../assets/HeaderIcons/logo.svg";
 import loop from "../../assets/HeaderIcons/loop.svg";
+import order from "../../assets/HeaderIcons/order.png";
 import pack from "../../assets/HeaderIcons/shopping-cart2.png";
 import userImg from "../../assets/HeaderIcons/user.svg";
 import Container from "../Container/Container";
@@ -10,6 +11,7 @@ import HeaderButton from "../HeaderButton/HeaderButton";
 import Nav from "../Nav/Nav";
 import ShoppingCart from "../ShoppingCart/ShoppingCart";
 import styles from "./Header.module.scss";
+import useCartItem from "../../hooks/useCartItem.js";
 
 export default function Header({
   removeProduct,
@@ -21,10 +23,11 @@ export default function Header({
   const [cartOpen, setCartOpen] = useState(false);
   const body = document.getElementById("body");
   const name = window.localStorage.getItem("name");
+  const { product } = useCartItem();
 
   function isUserLoggedIn() {
     return Boolean(
-      name && name !== "undefined" && name !== "null" && name.trim() !== ""
+      name && name !== "undefined" && name !== "null" && name.trim() !== "",
     );
   }
 
@@ -44,7 +47,7 @@ export default function Header({
   const btnData = [
     {
       imageBtn: loop,
-      to: "/search",
+      // to: "/search",
     },
 
     {
@@ -55,8 +58,15 @@ export default function Header({
     },
 
     {
+      imageBtn: order,
+      children:  "Заказы",
+      to: "/order",
+      // onClick: isLoggedIn ? disabled : " ",
+    },
+
+    {
       imageBtn: pack,
-      children: count,
+      children: product.length,
       onClick: (e) => {
         e.preventDefault();
 
@@ -70,7 +80,8 @@ export default function Header({
     },
 
     isLoggedIn
-      ? {
+      ?
+        {
           imageBtn: logout,
           children: "Выход",
           to: "/",

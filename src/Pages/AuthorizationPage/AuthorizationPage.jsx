@@ -5,51 +5,11 @@ import FlexBox from "../../components/FlexBox/FlexBox.jsx";
 import Input from "../../components/Input/Input.jsx";
 import styles from "./AuthorizationPage.module.scss";
 import { Toaster, toast } from "react-hot-toast";
+import useAuthorization from "../../hooks/useAuthorization.js";
 
 export default function AuthorizationPage({ onLogin }) {
-  const [login, setLogin] = useState("");
-  const [password, setPassword] = useState("");
-  const navigate = useNavigate();
-
-  function logging(e) {
-    window.localStorage.setItem("name", login);
-    navigate("/");
-  }
-
-  async function handleSubmit(e) {
-    e.preventDefault();
-    const sendingItem = { login, password };
-
-    try {
-      const response = await fetch("http://localhost:5000/l", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(sendingItem),
-      })
-        .then((response) => response.json())
-        .then((data) => {
-          if (data.message === "Данные получены успешно!") {
-            toast.success("Вход успешен");
-            setTimeout(logging, 2000);
-            onLogin(login);
-          } else {
-            toast.error("Неверный логин или пароль");
-          }
-        });
-
-      if (response.ok) {
-        const result = await response.json();
-        console.log("Успешно отправлено:", result);
-      } else {
-        console.error("Ошибка при отправке:", response.statusText);
-      }
-    } catch (error) {
-      console.error("Ошибка:", error);
-    }
-  }
-
+  const { login, password, setLogin, setPassword, handleSubmit } =
+    useAuthorization(onLogin);
   return (
     <div className={styles.page}>
       <div className={styles.author}>
