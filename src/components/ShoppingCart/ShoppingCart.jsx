@@ -9,6 +9,7 @@ import CartItem from "../CartItem/CartItem.jsx";
 export default function ShoppingCart({ closeCart }) {
   const navigate = useNavigate();
   const { product } = useCartItem();
+  console.log(product);
 
   function addOrder() {
     if (product.length !== 0) {
@@ -45,6 +46,7 @@ export default function ShoppingCart({ closeCart }) {
               <th className={styles.pad}>Цена</th>
               <th className={styles.pad}>Количество</th>
               <th className={styles.pad}>Итого</th>
+
             </tr>
           </thead>
           {product.map((item, index) => (
@@ -54,8 +56,9 @@ export default function ShoppingCart({ closeCart }) {
               productId={item.productId}
               productImage={item.productImage}
               productTitle={item.productName}
-              productPrice={item.productPrice}
               productQuantity={item.productQuantity}
+              productPrice={item.productPrice}
+              // productQuantity={item.productQuantity}
             />
           ))}
         </table>

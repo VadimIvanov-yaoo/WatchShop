@@ -23,9 +23,8 @@ export function ProductPage({ addProduct }) {
   useEffect(() => {
     window.scrollTo(0, 0);
     if (!product) {
-      axios
-        .post("http://localhost:5000/item", { id })
-        .then((res) => {
+      axios.post("http://localhost:5000/product/item", { id })
+          .then((res) => {
           setProduct(res.data);
         })
         .catch((err) => {
@@ -37,7 +36,7 @@ export function ProductPage({ addProduct }) {
   useEffect(() => {
     if (product) {
       axios
-        .post("http://localhost:5000/review", { id: cardId })
+          .post("http://localhost:5000/review/review", { id: cardId })
         .then((res) => {
           const newData = res.data.map((item) => Object.values(item));
           setReview(res.data);
@@ -97,6 +96,7 @@ export function ProductPage({ addProduct }) {
               >
                 {product.productName}
               </Title>
+              <span className={styles.quantity}>Осталось {product.quantity} штук!</span>
 
               <div className={styles.line}></div>
               <FlexBox gap="10px">

@@ -11,7 +11,7 @@ export default function useDeleteItem() {
 
     try {
       const { data } = await axios.post(
-        "http://localhost:5000/deleteBasket",
+        "http://localhost:5000/basket/basketDelete",
         basketData,
       );
       if (data.message === "Данные получены успешно!") {

@@ -67,7 +67,7 @@ export default function MainPage({ cardClick, addProduct, cardId }) {
 
   function handleCardClick(cardId) {
     axios
-      .post("http://localhost:5000/item", { id: cardId })
+      .post("http://localhost:5000/product/item", { id: cardId })
       .then((res) => {
         navigate(`/cardPage/${cardId}`, { state: res.data });
         console.log("Данные товара:", res.data);

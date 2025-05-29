@@ -31,6 +31,12 @@
   font-size: 1.2rem;
 }
 
+.orderTh, .orderTd {
+  padding: 1.2rem;
+  text-align: center;
+  font-size: 1.2rem;
+}
+
 .orderTh {
   font-weight: 700;
   color: #1e293b;
@@ -50,16 +56,11 @@
   transition: 0.2s ease-in-out;
 }
 
-.cancelBtn {
-  padding: 10px 25px;
-  color: #fff;
-  border-radius: 12px;
-  background: red;
-}
 
 .orderImage{
   padding-left: 100px;
   max-height: 200px;
+  max-width: 350px;
   mix-blend-mode: multiply;
 }
 

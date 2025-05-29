@@ -9,6 +9,7 @@ import Tippy from "@tippyjs/react";
 import "tippy.js/dist/tippy.css";
 import { useState } from "react";
 import { useCart } from "../../hooks/useCart.js";
+import axios from "axios";
 
 export default function ShopingCard({
   cardId,
@@ -18,10 +19,30 @@ export default function ShopingCard({
   addProduct,
   cardClick,
 }) {
+
+  async function updateQuantity() {
+    const sendingData = {  id: cardId  };
+
+    try {
+      const { data } = await axios.post(
+          "http://localhost:5000/product/updateItem",
+          sendingData
+      );
+
+      if (data.message === "Данные получены успешно!") {
+      } else if (data.message === "Ошибка") {
+        alert("Не успешно");
+      }
+    } catch (error) {
+      console.error("Ошибка:", error);
+    }
+  }
+
   const [visible, setVisible] = useState(false);
-  const { submitClick } = useCart(name);
-  function handleClick() {
+  // const { submitCartData } = useCart(name);
+  async function handleClick() {
     setVisible(true);
+    await updateQuantity();
     setTimeout(() => setVisible(false), 900);
   }
 
@@ -42,18 +63,18 @@ export default function ShopingCard({
             placement="top"
           >
             <Button
-              addProduct={addProduct}
-              id={cardId}
-              size="cardbtn"
-              name="transparentBtn"
-              onClick={(e) => {
-                e.stopPropagation();
-                addProduct(cardId);
-                handleClick();
-              }}
+                id={cardId}
+                size="cardbtn"
+                name="transparentBtn"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  addProduct(cardId);
+                  handleClick();
+                }}
             >
               В корзину
             </Button>
+
           </Tippy>
         </div>
       </FlexBox>

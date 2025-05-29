@@ -25,40 +25,33 @@ export default function RegisterPage() {
     e.preventDefault();
     const registerItem = { user, name, email, password, repeat };
 
+
     try {
-      const response = await fetch("http://localhost:5000/r", {
+      const response = await fetch("http://localhost:5000/auth/register", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify(registerItem),
-      })
-        .then((response) => response.json())
-        .then((data) => {
-          if (data.message === "Регистрация прошла успешно!") {
-            toast.success("Успешная регистрация");
-            setTimeout(logging, 2000);
-          } else if (data.message === "Пароли не совпадают") {
-            toast.error("Пароли не совпадают");
-          } else if (data.message === "Пользователь уже существует") {
-            toast.error(`Пользователь ${user} уже существует`);
-          } else if (data.message === "Поля не заполнены") {
-            toast.error("Поля не заполнены");
-          } else {
-            toast.error("Неверные данные");
-          }
-        });
+      });
 
-      if (response.ok) {
-        const result = await response.json();
-        console.log("Успешно отправлено:", result);
+      const data = await response.json();
+      if (response.ok && response.status === 200) {
+        toast.success("Успешная регистрация");
+        setTimeout(logging, 2000);
+      } else if (response.status === 422) {
+        toast.error("Пароли не совпадают");
+      } else if (response.status === 401) {
+        toast.error(`Пользователь ${user} уже существует`);
       } else {
-        console.error("Ошибка при отправке:", response.statusText);
+        toast.error(data.message || "Неверные данные");
       }
     } catch (error) {
       console.error("Ошибка:", error);
+      toast.error("Ошибка подключения к серверу");
     }
   }
+
 
   return (
     <section className={styles.register}>
@@ -131,7 +124,6 @@ export default function RegisterPage() {
               <span>Подтвердите пароль:</span>
               <Input
                 onChange={(e) => setRepeat(e.target.value)}
-                style={{ marginLeft: "10px" }}
                 placeholder="12345"
                 type="password"
                 className={styles.input}

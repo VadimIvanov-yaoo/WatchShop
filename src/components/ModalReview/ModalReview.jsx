@@ -34,7 +34,7 @@ const Modal = ({ isOpen, onClose }) => {
 
     try {
       const {data} = await axios.post(
-          "http://localhost:5000/reviewWrite",
+          "http://localhost:5000/review/reviewWrite",
           reviewItem
       );
 
@@ -51,9 +51,15 @@ const Modal = ({ isOpen, onClose }) => {
     }
     onClose();
   }
+
+  function test(e) {
+    e.stopPropagation();
+    onClose();
+  }
+
   return (
-    <div className={styles.wrapper} style={modalBackdropStyle}>
-      <div className={styles.container} style={modalStyle}>
+    <div  onClick={onClose} className={styles.wrapper} style={modalBackdropStyle}>
+      <div onClick={(e) => e.stopPropagation()} className={styles.container} style={modalStyle}>
         <h2 className={styles.title}>Создание отзыва</h2>
         <form className={styles.form} action="">
           <FlexBox align="align-center" just="between" gap="35px">

@@ -9,6 +9,14 @@
   opacity: 70%;
 }
 
+.cancelBtn {
+  padding: 10px 25px;
+  color: #fff;
+  border-radius: 12px;
+  background: red;
+}
+
+
 .orderTable {
   width: 100%;
   border-collapse: collapse;
@@ -20,8 +28,13 @@
 }
 
 .orderTableHead {
+  //width: 100%;
   background: linear-gradient(90deg, #c3dafe, #a5f3fc);
 }
+.orderTableHeadRow{
+  width: 100%;
+}
+
 
 .arrow {
   font-size: 20px;
@@ -37,9 +50,10 @@
 
 .orderTh, .orderTd {
   padding: 1.2rem;
-  text-align: left;
+  text-align: center;
   font-size: 1.2rem;
 }
+
 
 .orderPage {
   background: linear-gradient(135deg, #f0f4ff, #e6f0ff);
@@ -48,6 +62,13 @@
 .userInfo{
   font-size: 1.1rem;
   padding-left: 5px;
+}
+
+.notFound{
+  padding-top: 60px;
+  font-size: 4rem;
+  color: gray;
+  text-align: center;
 }
 
 

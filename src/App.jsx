@@ -30,6 +30,7 @@ function App() {
                     cart={cart}
                 />
             )}
+
         <Routes>
           <Route
               path="/"

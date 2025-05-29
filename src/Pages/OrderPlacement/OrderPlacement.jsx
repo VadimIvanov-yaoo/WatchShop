@@ -99,12 +99,13 @@ export default function OrderPlacement() {
     };
     try {
       const { data } = await axios.post(
-        "http://localhost:5000/OrderPlacement",
+        "http://localhost:5000/order/OrderPlacement",
         reviewItem,
       );
 
       if (data.message === "Данные получены успешно!") {
         toast.success("Ваш заказ успешно оформлен");
+        setTimeout(() => navigate("/order"), 2000);
       } else if (data.message === "Ошибка") {
         toast.error("Поля не заполнены");
       }

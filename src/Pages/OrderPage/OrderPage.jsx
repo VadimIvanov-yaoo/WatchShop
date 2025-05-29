@@ -15,7 +15,7 @@ export default function OrderPage() {
     const authUser = localStorage.getItem("name");
     if (authUser) {
       axios
-        .post("http://localhost:5000/order", { userName: authUser })
+        .post("http://localhost:5000/order/order", { userName: authUser })
         .then((res) => {
           setOrder(res.data);
         })
@@ -25,29 +25,29 @@ export default function OrderPage() {
     }
   }, []);
 
-  const handleDelete = async (e) => {
-    e.preventDefault();
-    const userName = localStorage.getItem("name");
-    const orderData = {
-      userName,
-      items: order.items.map((item) => ({ id: item.id })),
-    };
-    try {
-      const { data } = await axios.post(
-        "http://localhost:5000/orderDelete",
-        orderData,
-      );
+  console.log(order)
 
-      if (data.message === "Данные получены успешно!") {
+  const handleDelete = async (id) => {
+    try {
+      const userName = localStorage.getItem("name");
+      const orderData = { userName, id };
+
+      const { data } = await axios.post("http://localhost:5000/order/orderDelete", orderData);
+
+      if (data.message === "Запись успешно удалена") {
         console.log("Удаление успешно");
-        setOrder({ orders: [], items: [] });
+        setOrder(prev => ({
+          ...prev,
+          items: prev.items.filter(item => item.id !== id),
+        }));
       } else {
         alert("Не успешно");
       }
     } catch (error) {
-      console.error("Ошибка:", error);
+      console.error("Ошибка в handleDelete:", error);
     }
   };
+
 
   console.log(order.items);
 
@@ -70,6 +70,7 @@ export default function OrderPage() {
 
             {order.orders.length > 0 ? (
               <>
+                <div style={{ display: "flex", justifyContent: "space-between", alignItems:"center", paddingRight: "20px"}}>
                 <div className={styles.userInfo}>
                   <span>
                     <b>Получатель:</b> {order.orders[0].nameUser}
@@ -82,6 +83,15 @@ export default function OrderPage() {
                   <span>
                     <b>Email:</b> {order.orders[0].email}
                   </span>
+
+                </div>
+                  <button
+                      onClick={() => handleDelete(order.orders[0].id)}
+                      className={styles.cancelBtn}
+                  >
+                    Отменить заказ
+                  </button>
+
                 </div>
 
                 <table className={styles.orderTable}>
@@ -92,22 +102,28 @@ export default function OrderPage() {
                       <th className={styles.orderTh}>Цена</th>
                       <th className={styles.orderTh}>Количество</th>
                       <th className={styles.orderTh}>Сумма</th>
+                      <th className={styles.orderTh}>Статус</th>
+                      <th className={styles.orderTh}></th>
                     </tr>
                   </thead>
                   {order.items.map((product, index) => (
                     <OrderItem
-                      key={index}
+                      // key={index}
+                      key={product.id}
+                      id={product.id}
                       handleDelete={handleDelete}
                       productImage={product.productImage}
                       productName={product.productName}
                       productPrice={product.productPrice}
                       productQuantity={product.productQuantity}
+                      productTotalPrice={product.productTotalPrice}
                     />
                   ))}
                 </table>
+
               </>
             ) : (
-              <p>Заказы не найдены</p>
+              <h3 className={styles.notFound}>Заказы не найдены</h3>
             )}
           </FlexBox>
         </form>

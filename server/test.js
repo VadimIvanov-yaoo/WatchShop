@@ -31,7 +31,7 @@ app.use(
   }),
 );
 
-app.post("/l", (req, res) => {
+app.post("/login", (req, res) => {
   const { login, password } = req.body;
   console.log("Получены данные:", login, password);
 
@@ -46,20 +46,16 @@ app.post("/l", (req, res) => {
         console.error("Ошибка при выполнении запроса:", error);
         return res.status(500).json({ error: "Ошибка сервера" });
       }
-
       if (!results || results.length === 0) {
         return res.status(400).json({ message: "Пользователь не найден" });
       }
-
       const userData = results[0];
       const storedHash = userData.userPassword;
-
       bcrypt.compare(password, storedHash, (err, isMatch) => {
         if (err) {
           console.error("Ошибка при сравнении паролей:", err);
           return res.status(500).json({ error: "Ошибка сервера" });
         }
-
         if (isMatch) {
           console.log("Вход успешен");
           return res.status(200).json({
@@ -74,7 +70,7 @@ app.post("/l", (req, res) => {
   );
 });
 
-app.post("/r", (req, res) => {
+app.post("/register", (req, res) => {
   const { user, name, email, password, repeat } = req.body;
 
   if (!user || !password || !name || !email || !repeat) {
@@ -144,6 +140,32 @@ app.post("/item", (req, res) => {
     },
   );
 });
+
+app.post("/updateItem", (req, res) => {
+    const { id } = req.body;
+    console.log("Получены данные:", id);
+
+    connection.query(
+        {
+            sql: "UPDATE `product` SET quantity = quantity - 1 WHERE id = ?",
+            timeout: 5000,
+        },
+        [id],
+        (error, results) => {
+            if (error) {
+                console.error("Ошибка при выполнении запроса:", error);
+                return res.status(500).json({ message: "Ошибка" });
+            }
+
+            if (results.affectedRows > 0) {
+                res.json({ message: "Данные получены успешно!" });
+            } else {
+                res.status(404).json({ message: "Товар с таким ID не найден" });
+            }
+        }
+    );
+});
+
 
 app.post("/review", (req, res) => {
   const { id } = req.body;

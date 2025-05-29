@@ -8,19 +8,23 @@ export function useCart() {
   const [count, setCount] = useState(0);
   const [cart, setCart] = useState([]);
 
-  function addProduct(id) {
+  function addProduct(id, quantity = 1) {
     setCart((prevCart) => {
       const existingProduct = prevCart.find((item) => item.id === id);
       if (existingProduct) {
         return prevCart.map((item) =>
-          item.id === id ? { ...item, quantity: item.quantity + 1 } : item,
+            item.id === id
+                ? { ...item, quantity: item.quantity + quantity }
+                : item
         );
       }
+
       const product = card.find((item) => item.id === parseInt(id));
       if (!product) return prevCart;
-      return [...prevCart, { ...product, quantity: 1 }];
+      return [...prevCart, { ...product, quantity }];
     });
   }
+
 
   function removeProduct(id) {
     setCart((prevCart) => {
@@ -49,11 +53,10 @@ export function useCart() {
           productQuantity: item.quantity,
         })),
       };
-
       const submitCartData = async () => {
         try {
           const { data } = await axios.post(
-            "http://localhost:5000/basket",
+            "http://localhost:5000/basket/basket",
             basketData,
           );
           if (data.message === "Данные получены успешно!") {
