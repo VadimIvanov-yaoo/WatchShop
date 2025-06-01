@@ -16,14 +16,17 @@ import styles from "./MainPage.module.scss";
 import pack from "../../assets/HeaderIcons/pack.png";
 import bg from "../../assets/images/watchBackg.png";
 import znak from "../../assets/images/PCT.svg";
-import { useCart } from "../../hooks/useCart.js";
 
 export default function MainPage({ cardClick, addProduct, cardId }) {
   const [state, setState] = useState();
   const [priceStart, setPriceStart] = useState("");
   const [priceEnd, setPriceEnd] = useState("");
-  const [productData, setProductData] = useState("");
+  const [selectedValue, setSelectedValue] = useState("1");
   const navigate = useNavigate();
+
+  function handleSortChange(val) {
+    setSelectedValue(val);
+  }
 
   function startPrice(e) {
     const value = e.target.value;
@@ -209,7 +212,7 @@ export default function MainPage({ cardClick, addProduct, cardId }) {
                 </FlexBox>
                 <FlexBox gap="10px" align="align-start" direction="flex-column">
                   <span className={styles.inputLabel}>Фильтр</span>
-                  <Select />
+                  <Select value={selectedValue} onChange={e => handleSortChange(e.target.value)} />
                 </FlexBox>
               </div>
             </div>
@@ -222,6 +225,7 @@ export default function MainPage({ cardClick, addProduct, cardId }) {
                   startPrice={parseFloat(priceStart) || 0}
                   endPrice={parseFloat(priceEnd) || Infinity}
                   addProduct={addProduct}
+                  sortOrder={selectedValue === "2" ? "asc" : selectedValue === "3" ? "desc" : null}
                 />
               </FlexBox>
             </div>

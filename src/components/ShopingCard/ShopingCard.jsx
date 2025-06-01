@@ -3,12 +3,10 @@ import Button from "../Button/Button";
 import Description from "../Description/Description";
 import FlexBox from "../FlexBox/FlexBox";
 import Title from "../Title/Title";
-import Raiting from "../Raiting/Raiting";
 import styles from "./ShopingCard.module.scss";
 import Tippy from "@tippyjs/react";
 import "tippy.js/dist/tippy.css";
 import { useState } from "react";
-import { useCart } from "../../hooks/useCart.js";
 import axios from "axios";
 
 export default function ShopingCard({
@@ -39,7 +37,6 @@ export default function ShopingCard({
   }
 
   const [visible, setVisible] = useState(false);
-  // const { submitCartData } = useCart(name);
   async function handleClick() {
     setVisible(true);
     await updateQuantity();
