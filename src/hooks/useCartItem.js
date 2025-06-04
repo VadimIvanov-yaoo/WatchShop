@@ -1,24 +1,25 @@
-import { useState, useEffect } from "react";
+import {useEffect, useState} from "react";
 import axios from "axios";
 
 export default function useCartItem() {
   const [product, setProduct] = useState([]);
-
   useEffect(() => {
-    const authUser = localStorage.getItem("name");
-    if (authUser && authUser !== "") {
-      axios
-        .get("http://localhost:5000/basket/basketGet", {
-          params: { userName: authUser },
-        })
-        .then((res) => {
-          setProduct(res.data);
-        })
-        .catch((err) => {
-          console.error("Ошибка загрузки данных:", err);
-        });
-    }
+    showProduct();
   }, []);
 
-  return { product };
+  async function showProduct() {
+    const authUser = localStorage.getItem("name");
+    if (authUser && authUser.trim() !== "") {
+      try {
+        const res = await axios.get("http://localhost:5000/basket/basketGet", {
+          params: { userName: authUser },
+        });
+        setProduct(res.data);
+      } catch (err) {
+        console.error("Ошибка загрузки данных:", err);
+      }
+    }
+  }
+
+  return { showProduct, product };
 }

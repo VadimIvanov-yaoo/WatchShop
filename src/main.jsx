@@ -14,12 +14,12 @@ const Context = createContext("card");
 
 createRoot(document.getElementById("root")).render(
   <Context.Provider value={card}>
-    <React.StrictMode>
+    {/*<React.StrictMode>*/}
       <MantineProvider withGlobalStyles withNormalizeCSS>
         <BrowserRouter>
           <App />
         </BrowserRouter>
       </MantineProvider>
-    </React.StrictMode>
+    {/*</React.StrictMode>*/}
   </Context.Provider>
 );

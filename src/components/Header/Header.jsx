@@ -17,13 +17,12 @@ export default function Header({
   removeProduct,
   user,
   cart,
-  count,
   closeCart,
 }) {
   const [cartOpen, setCartOpen] = useState(false);
   const body = document.getElementById("body");
   const name = window.localStorage.getItem("name");
-  const { product } = useCartItem();
+  const { showProduct, product } = useCartItem();
 
   function isUserLoggedIn() {
     return Boolean(
@@ -36,6 +35,21 @@ export default function Header({
   function disabled(e) {
     e.preventDefault();
   }
+
+  async function handleCartClick(e) {
+    e.preventDefault();
+
+    if (!cartOpen) {
+      await showProduct();
+      BodyStyles();
+      setCartOpen(true);
+    } else {
+      restoreBodyStyles();
+      setCartOpen(false);
+    }
+  }
+
+
 
   const navData = [
     { linkTitle: "Мужские" },
@@ -61,20 +75,21 @@ export default function Header({
       imageBtn: order,
       children:  "Заказы",
       to: "/order",
-      // onClick: isLoggedIn ? disabled : " ",
     },
 
     {
       imageBtn: pack,
       children: product.length,
-      onClick: (e) => {
+      onClick: async (e) => {
         e.preventDefault();
 
-        setCartOpen(!cartOpen);
         if (cartOpen) {
+          setCartOpen(false);
           restoreBodyStyles();
         } else {
+          await showProduct();
           BodyStyles();
+          setCartOpen(true);
         }
       },
     },

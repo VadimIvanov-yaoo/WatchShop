@@ -85,7 +85,6 @@ export default function OrderPlacement() {
   const address = inputData.address;
   const creditCardNumber = inputData.cardNumber;
   const cartItem = JSON.stringify(product);
-  // const cartItem = cart;  ;
 
   async function sendClick() {
     const reviewItem = {
@@ -103,7 +102,7 @@ export default function OrderPlacement() {
         reviewItem,
       );
 
-      if (data.message === "Данные получены успешно!") {
+      if (data.message === "Заказ успешно оформлен!") {
         toast.success("Ваш заказ успешно оформлен");
         setTimeout(() => navigate("/order"), 2000);
       } else if (data.message === "Ошибка") {
@@ -117,7 +116,7 @@ export default function OrderPlacement() {
   function handleSubmit(e) {
     e.preventDefault();
     changeColor();
-    navigate("/order");
+    // navigate("/order");
   }
 
   return (

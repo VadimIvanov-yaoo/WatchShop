@@ -1,4 +1,25 @@
 import connection from "../db/connection.js";
+export const product = (req, res) => {
+    connection.query(
+        {
+            sql: "SELECT * FROM `product`",
+            timeout: 5000,
+        },
+        (error, results) => {
+            if (error) {
+                console.error("Ошибка при выполнении запроса:", error);
+                return res.status(500).json({ error: "Ошибка сервера" });
+            }
+            if (results.length === 0) {
+                return res.status(404).json({ message: "Товар не найден" });
+            }
+
+            res.json(results);
+        },
+    );
+};
+
+
 
 export const productItem = (req, res) => {
     const { id } = req.body;

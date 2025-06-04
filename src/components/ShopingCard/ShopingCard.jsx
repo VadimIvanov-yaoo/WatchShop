@@ -17,7 +17,6 @@ export default function ShopingCard({
   addProduct,
   cardClick,
 }) {
-
   async function updateQuantity() {
     const sendingData = {  id: cardId  };
 
